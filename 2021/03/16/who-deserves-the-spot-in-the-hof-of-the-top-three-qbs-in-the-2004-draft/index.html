@@ -131,7 +131,11 @@ library(ggalt)</code></pre>
     colour_xend = &quot;red&quot;
   ) + 
   theme_minimal() + 
-   labs(title = &quot;Rivers takes the Touchdown Interception Ratio Battle&quot;, subtitle=&quot;Big Ben has less INT&#39;s but Rivers dominates on Touchdowns&quot;, y=&quot;Player&quot;, x=&quot;TD/INT Ratio&quot;)</code></pre>
+   labs(title = &quot;Rivers takes the Touchdown Interception Ratio Battle&quot;, subtitle=&quot;Big Ben has less INT&#39;s but Rivers dominates on Touchdowns&quot;, y=&quot;Player&quot;, x=&quot;TD/INT Ratio&quot;) +
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;),
+    axis.title = element_text(size = 8), 
+    plot.subtitle = element_text(size=10))</code></pre>
 <p><img src="/post/2021-03-16-the-draft/Index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 
     </div>
