@@ -187,13 +187,6 @@ library(kableExtra)</code></pre>
 ##   Rings = col_double(),
 ##   ProBowls = col_double()
 ## )</code></pre>
-<pre class="r"><code>playoffstats</code></pre>
-<pre><code>## # A tibble: 3 x 8
-##   Player             Games  Wins PassingYards   Int    Td Rings ProBowls
-##   &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-## 1 Philip Rivers         12     5         2965    10    16     0        8
-## 2 Eli Manning           12     8         2815     9    18     2        4
-## 3 Ben Roethlisberger    22    13         5757    28    34     2        6</code></pre>
 <pre class="r"><code>playoffcat &lt;- playoffstats %&gt;%
   arrange(desc(Games)) </code></pre>
 <pre class="r"><code>playoffcat %&gt;% kable() %&gt;% 
