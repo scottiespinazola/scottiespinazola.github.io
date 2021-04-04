@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">2 min read</span>
+    <span class="article-duration">3 min read</span>
     
 
     <h1 class="article-title">Who Deserves the Spot in the HOF of the Top Three QBs in the 2004 Draft</h1>
@@ -109,7 +109,29 @@
 ##   `College/Univ` = col_character()
 ## )</code></pre>
 <pre><code>## See spec(...) for full column specifications.</code></pre>
+<pre class="r"><code>yards &lt;- draft %&gt;% group_by(Player) %&gt;% summarise(CareerPassingYards = sum(Yds), CareerRushingYards = sum(Yds_1)) </code></pre>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre class="r"><code>yardswide &lt;- yards %&gt;% 
+  pivot_longer(
+    cols=starts_with(&quot;Career&quot;), 
+    names_to=&quot;Type&quot;, 
+    values_to=&quot;Yards&quot;)</code></pre>
+<pre class="r"><code>ggplot(yardswide, aes(x=reorder(Player, Yards), weight=Yards, fill=Type)) +
+  geom_bar() + 
+  coord_flip() +
+  labs(
+    x = &quot;Total Career Offensive Yards&quot;,
+    y = &quot;PLayer&quot;,
+    title = &quot;Rivers takes total Career offensive yards&quot;,
+    subtitle = &quot;But Big Ben has more to come&quot;
+  ) +
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;),
+    plot.subtitle = element_text(size = 10),
+    axis.title = element_text(size = 8),
+    panel.grid.minor = element_blank()
+  )</code></pre>
 <p><img src="/post/2021-03-16-the-draft/Index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <pre class="r"><code>library(tidyverse)
 library(ggalt)</code></pre>
