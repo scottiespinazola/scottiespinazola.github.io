@@ -78,6 +78,7 @@
 <p>When first looking at the draft of 2004 it could have been a lot different because of the way that the first pick ended up.</p>
 <p>Eli manning was the top Quarterback coming out of Ole Miss but did not want to be drafted number one overall by the San Diego Chargers because the market would not fit a Manning, so there next target was Philip Rivers from North Carolina State at Four. That landed Eli with the New York Giants and Rivers to the Chargers.</p>
 <p>That is all of the drama that was going on in the top ten of the draft but right outside of the that was 11th overall pick Big Ben Roethlisberger from Miami of Ohio.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>## ── Attaching packages ──────────────────</code></pre>
 <pre><code>## ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
 ## ✓ tibble  3.0.3     ✓ dplyr   1.0.2
@@ -86,6 +87,7 @@
 <pre><code>## ── Conflicts ── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>draft &lt;- read_csv(&quot;2004 draft stats.csv&quot;)</code></pre>
 <pre><code>## Warning: Duplicated column names deduplicated: &#39;Att&#39; =&gt; &#39;Att_1&#39; [17], &#39;Yds&#39; =&gt;
 ## &#39;Yds_1&#39; [18], &#39;TD&#39; =&gt; &#39;TD_1&#39; [19], &#39;Yds&#39; =&gt; &#39;Yds_2&#39; [21], &#39;TD&#39; =&gt; &#39;TD_2&#39; [22]</code></pre>
 <pre><code>## Parsed with column specification:
@@ -97,15 +99,6 @@
 ##   `College/Univ` = col_character()
 ## )</code></pre>
 <pre><code>## See spec(...) for full column specifications.</code></pre>
-<pre><code>## # A tibble: 3 x 23
-##    Pick Tm    Player Pos     Age    To    PB    St CarAV  DrAV     G   Cmp   Att
-##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1     1 SDG   Eli M… QB       23  2019     4    14   118    NA   236  4895  8119
-## 2     4 NYG   Phili… QB       22  2020     8    15   149    NA   244  5277  8134
-## 3    11 PIT   Ben R… QB       22  2020     6    16   128   128   233  5050  7838
-## # … with 10 more variables: Yds &lt;dbl&gt;, TD &lt;dbl&gt;, Int &lt;dbl&gt;, Att_1 &lt;dbl&gt;,
-## #   Yds_1 &lt;dbl&gt;, TD_1 &lt;dbl&gt;, Rec &lt;dbl&gt;, Yds_2 &lt;dbl&gt;, TD_2 &lt;dbl&gt;,
-## #   `College/Univ` &lt;chr&gt;</code></pre>
 
     </div>
   </article>
