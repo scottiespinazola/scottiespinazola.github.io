@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">8 min read</span>
+    <span class="article-duration">10 min read</span>
     
 
     <h1 class="article-title">Who Deserves the Spot in the HOF of the Top Three QBs in the 2004 Draft</h1>
@@ -195,6 +195,7 @@ library(kableExtra)</code></pre>
 <pre><code>## The following objects are masked from &#39;package:scales&#39;:
 ## 
 ##     comma, percent, scientific</code></pre>
+<p>This little data sheet is something that I put together to get a look at some of the aspects that go into conversations with friends when discussing g.o.a.t’s or quarterbacks in general and so why not bring it into this conversaton. We will be looking at Games, Wins, Passing Yards, Int, Td, Rings, and then some little interest factor we got Pro Bowls.</p>
 <pre class="r"><code>playoffstats &lt;- read_csv(&quot;Playoffs.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
@@ -209,6 +210,7 @@ library(kableExtra)</code></pre>
 ## )</code></pre>
 <pre class="r"><code>playoffcat &lt;- playoffstats %&gt;%
   arrange(desc(Games)) </code></pre>
+<p>So then lets get this straight when it comes to playoffs as it looks Big Ben has the experience with ten more games, the same amount of wins as the two have combine, that previous statement works the same for the touchdowns and rings. But Rivers takes down Eli again with yards and both in Pro Bowls.</p>
 <pre class="r"><code>playoffcat %&gt;% kable() %&gt;% 
   kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;)) %&gt;%
   row_spec(1, bold = T, color = &quot;white&quot;, background = &quot;#FBB93C&quot;) %&gt;%
@@ -323,6 +325,10 @@ Eli Manning
 </tr>
 </tbody>
 </table>
+<p>What I am getting from this is that Big Ben takes the spot with playoffs and Rivers takes it with regular season. I hate to say it but post season matters, if someone tells you that it doesn’t then they might be a Andy Dalton or Matthew Stafford fan.</p>
+<p>But when wrapping this thing in a pretty little bow that it deserves would be this, the question was asked “Who would take the spot in canton if there was only one spot left?” and I hate to say it because I was pulling for Rivers but it was said before Big Ben Roethlisberger gets the spot. Here is why he comes in close second in all of the above categories of the regular season and is still going to be playing and STARTING so those will be taken over but it really comes from Roethlisbergers experience and success in the playoffs.</p>
+<p>Rings matter Rivers should back up Mahomes for a couples heres and maybe next time we do this type of thing he can be the choosen one but not this time, after all side arms are not going to win championships and you cann quote me here.</p>
+<p>Atleast neither of Rivers or Roethlsberger lost their job to Danny Dimes.</p>
 
     </div>
   </article>
