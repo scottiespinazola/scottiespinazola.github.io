@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">4 min read</span>
+    <span class="article-duration">5 min read</span>
     
 
     <h1 class="article-title">Who Deserves the Spot in the HOF of the Top Three QBs in the 2004 Draft</h1>
@@ -85,6 +85,7 @@
 <p>Eli manning was the top Quarterback coming out of Ole Miss but did not want to be drafted number one overall by the San Diego Chargers because the market would not fit a Manning, so there next target was Philip Rivers from North Carolina State at Four. That landed Eli with the New York Giants and Rivers to the Chargers.</p>
 <p>That is all of the drama that was going on in the top ten of the draft but right outside of the that was 11th overall pick Big Ben Roethlisberger from Miami of Ohio.</p>
 <p>So now they have their destinations and the routes that they took and the only one that changed teams since the draft drama and after was Rivers when he went to the Colts, playoff run but not past the first round.</p>
+<p>The three of them when looking at the stats and just being able to watch them live when I was able to it is pretty clear that the three are not know for being the most mobile quarterbacks; but hey all 18 Pro Bowls and four Super Bowl rings make up this group.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>## ── Attaching packages ─────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>## ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
@@ -103,6 +104,7 @@
 <pre><code>## The following object is masked from &#39;package:readr&#39;:
 ## 
 ##     col_factor</code></pre>
+<p>The data that we will be looking at will bring in a lot of good stats and things that be put into this post to make the argument a good one.</p>
 <pre class="r"><code>draft &lt;- read_csv(&quot;2004 draft stats.csv&quot;)</code></pre>
 <pre><code>## Warning: Duplicated column names deduplicated: &#39;Att&#39; =&gt; &#39;Att_1&#39; [17], &#39;Yds&#39; =&gt;
 ## &#39;Yds_1&#39; [18], &#39;TD&#39; =&gt; &#39;TD_1&#39; [19], &#39;Yds&#39; =&gt; &#39;Yds_2&#39; [21], &#39;TD&#39; =&gt; &#39;TD_2&#39; [22]</code></pre>
@@ -115,6 +117,8 @@
 ##   `College/Univ` = col_character()
 ## )</code></pre>
 <pre><code>## See spec(...) for full column specifications.</code></pre>
+<p>But what we will be looking at first is the passing yard and the running yards for these three careers.</p>
+<p>Side note obviously I know that Big Ben is stll playing and will probably over take some of the arguments, if he can put up numbers he did a season ago, but we are going to save that for when he does retire and just focus on the stats he has now.</p>
 <pre class="r"><code>yards &lt;- draft %&gt;% group_by(Player) %&gt;% summarise(CareerPassingYards = sum(Yds), CareerRushingYards = sum(Yds_1)) </code></pre>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre class="r"><code>yardswide &lt;- yards %&gt;% 
