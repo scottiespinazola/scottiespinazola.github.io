@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">5 min read</span>
+    <span class="article-duration">6 min read</span>
     
 
     <h1 class="article-title">Who Deserves the Spot in the HOF of the Top Three QBs in the 2004 Draft</h1>
@@ -117,7 +117,7 @@
 ##   `College/Univ` = col_character()
 ## )</code></pre>
 <pre><code>## See spec(...) for full column specifications.</code></pre>
-<p>But what we will be looking at first is the passing yard and the running yards for these three careers.</p>
+<p>But what we will be looking at first is the passing yards and the running yards for these three careers.</p>
 <p>Side note obviously I know that Big Ben is stll playing and will probably over take some of the arguments, if he can put up numbers he did a season ago, but we are going to save that for when he does retire and just focus on the stats he has now.</p>
 <pre class="r"><code>yards &lt;- draft %&gt;% group_by(Player) %&gt;% summarise(CareerPassingYards = sum(Yds), CareerRushingYards = sum(Yds_1)) </code></pre>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
@@ -126,6 +126,7 @@
     cols=starts_with(&quot;Career&quot;), 
     names_to=&quot;Type&quot;, 
     values_to=&quot;Yards&quot;)</code></pre>
+<p>Seeing what the yards have to say it really is seen then they are not mobile but yet the just showing that with what all three have accomplished in their careers has been done with that missile they call an arm.</p>
 <pre class="r"><code>ggplot(yardswide, aes(x=reorder(Player, Yards), weight=Yards, fill=Type)) +
   geom_bar() + 
   coord_flip() +
@@ -143,6 +144,8 @@
     panel.grid.minor = element_blank()
   )</code></pre>
 <p><img src="/post/2021-03-16-the-draft/Index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Rivers takes the yardage test but not by much, I would say that this came at a surprise but not because of Rivers. Eli comes in at last, which surprised me, maybe the Manning name, but what he has done with his career is something that I guess doesn’t show up on his stats.</p>
+<p>Rivers tops both because of what he has done with his side arm type passes, Big Ben does take the crown for the rushing yards but that is because of his x-factor being escape artist (for the Madden fans).</p>
 <pre class="r"><code>library(tidyverse)
 library(ggalt)</code></pre>
 <pre><code>## Registered S3 methods overwritten by &#39;ggalt&#39;:
