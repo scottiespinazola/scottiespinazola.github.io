@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">6 min read</span>
+    <span class="article-duration">8 min read</span>
     
 
     <h1 class="article-title">Who Deserves the Spot in the HOF of the Top Three QBs in the 2004 Draft</h1>
@@ -148,6 +148,7 @@
 <p>Rivers tops both because of what he has done with his side arm type passes, Big Ben does take the crown for the rushing yards but that is because of his x-factor being escape artist (for the Madden fans).</p>
 <p>All of these stats do make sense though when you take them into consideration, the teams that all three played for always had those quick little running backs that could take the screens or dumpdowns that some mobile quarterbacks would take for themselves.</p>
 <p>Chargers have had Austin Ekeler, Steelers Le’von Bell and the Giants with Saquon Barkley, Amid Bradshaw,and Teke Barbor. Helping pad those passing stats make sense of the crazy lopsided story being told in the chart above but also it shows the story is that Rivers did more with his completetions than Big Ben or Eli.</p>
+<p>Yards can be dinks and dunks from screens or under arms passes as we see from Mahomes but Touchdowns and Int do come from good passes and smart/dumb descision making. Or you could be Jamis Winston and be throwing the 30 touchdowns in a season, lead the league in passing but also lead the league in interceptions by a landslide. But with us and these players we are not going to be talking about players that make head shaking mistakes.</p>
 <pre class="r"><code>library(tidyverse)
 library(ggalt)</code></pre>
 <pre><code>## Registered S3 methods overwritten by &#39;ggalt&#39;:
@@ -157,8 +158,10 @@ library(ggalt)</code></pre>
 ##   grobWidth.absoluteGrob  ggplot2
 ##   grobX.absoluteGrob      ggplot2
 ##   grobY.absoluteGrob      ggplot2</code></pre>
+<p>We are going to be talking about the ratio between touchdowns and interceptions because truly when looking at this stat ou are giving your team points or costing your team the game so this will show when the time comes who came up for their team.</p>
 <pre class="r"><code>totaloutcomes &lt;- draft %&gt;% group_by(Player) %&gt;% summarise(Touchdowns = sum(TD), Interceptions = sum(Int))</code></pre>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p>When throwing a touchdown touch, precision, and smart decision making are all what comes to mind but it all is the opposite when it comes to interceptions. You would think the with the year the Steelers just had with their undefeated stretch that Big Ben would be able to bring in the title for this ratio but it may have been that loss in the playoffs that made this what it is.</p>
 <pre class="r"><code>ggplot() + 
   geom_dumbbell(
     data = totaloutcomes,
@@ -174,6 +177,10 @@ library(ggalt)</code></pre>
     axis.title = element_text(size = 8), 
     plot.subtitle = element_text(size=10), panel.grid.minor = element_blank())</code></pre>
 <p><img src="/post/2021-03-16-the-draft/Index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Rivers takes this ratio by close to thirty which is interesting but as to what Big Ben could have done was made his ratio a little more impressive by not throwing those interceptions in a playoff game that was just a tad embarrassing.</p>
+<p>Rivvers has passing yards and now touchdowns, Big Ben does take the title though for less mistakes but what is more interesting in this chart is the fact that Eli is last again…. but this time by a lot has close to 50 more intereceptions than Big ben and around 30 less touchdowns as well. Eli had a great career don’t get me wrong here but was it just the rings that make him in this coversation? it is looking that way.</p>
+<p>Obviously Super Bowl rings are impressive but let me ask you this… If Rivers had just one ring would that push him into the clear spot taker? Now Rivers has better career yards, more touchdowns, only a few more interceptions yet gets all of the slander when put up against his fellow draft mates.</p>
+<p>Rings and playoffs are important so lets take a look why don’t we since we are already here.</p>
 <pre class="r"><code>library(tidyverse)
 
 library(kableExtra)</code></pre>
