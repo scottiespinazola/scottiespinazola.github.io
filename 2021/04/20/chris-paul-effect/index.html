@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">3 min read</span>
+    <span class="article-duration">4 min read</span>
     
 
     <h1 class="article-title">The Chris Paul Effect </h1>
@@ -288,6 +288,52 @@ Gary Payton*
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>library(rtweet)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;rtweet&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     flatten</code></pre>
+<pre class="r"><code>library(tidytext)
+
+library(tidyverse)
+
+library(lubridate)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     date, intersect, setdiff, union</code></pre>
+<pre class="r"><code>suns2019 &lt;- read_csv(&quot;suns2019-20 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   `W/L` = col_character(),
+##   Year = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>suns2020 &lt;- read_csv(&quot;suns2020-21 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   `W/L` = col_character(),
+##   Year = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>suns_past_present &lt;- bind_rows(suns2019, suns2020)</code></pre>
+<pre class="r"><code>diffscore &lt;- suns_past_present %&gt;% 
+  mutate(Differential = TmScore - OppScore) %&gt;% 
+  group_by(Year) %&gt;% 
+  mutate(CumDiff = cumsum(Differential))</code></pre>
+<pre class="r"><code>ggplot() +
+  geom_step(data = diffscore, aes(x = Game, y = CumDiff, group = Year, color = Year)) + 
+  labs(x = &quot;Game&quot;, y = &quot;Cumulative Point Differential&quot;, title = &quot;The 2020-21 Suns through 58 games show Dominance&quot;, subtitle = &quot;If you can&#39;t tell Chris Paul joined the team this year&quot;, caption = &quot;Source: Basketball Reference | By Scottie Spinazola&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 
     </div>
   </article>
