@@ -350,7 +350,7 @@ library(lubridate)</code></pre>
   group_by(Year) %&gt;% 
   mutate(CumDiff = cumsum(Differential))</code></pre>
 <pre class="r"><code>ggplot() +
-  geom_step(data = diffscorerockets, aes(x = Game, y = CumDiff, group = Year, color = Year)) + 
+  geom_step(data = diffscorerockets, aes(x = Game, y = CumDiff, group = Year, color = Year)) +
   labs(x = &quot;Game&quot;, y = &quot;Cumulative Point Differential&quot;, title = &quot;Houston Rockets take huge leap after Chris Paul comes to H-Town&quot;, subtitle = &quot;Was Russel Westbrook a good adition in 2019-20?&quot;, caption = &quot;Source: Basketball Reference | By Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
 <p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
