@@ -379,7 +379,9 @@ clip2017 &lt;- astdef %&gt;% filter(Year == &quot;2017-18&quot;)
 ggplot() + 
   geom_point(data=astdef, aes(x=TotalAST, y=Wins))+
   geom_smooth(data=astdef, aes(x=TotalAST, y=Wins), method=&quot;lm&quot;)+
-  geom_point(data=clip2014, aes(x=TotalAST, y=Wins), color=&quot;green&quot;) + geom_point(data=clip2017, aes(x=TotalAST, y=Wins), color=&quot;red&quot;)</code></pre>
+  geom_point(data=clip2014, aes(x=TotalAST, y=Wins), color=&quot;green&quot;) + geom_point(data=clip2017, aes(x=TotalAST, y=Wins), color=&quot;red&quot;) +
+  labs(x = &quot;Total Assists&quot;, y = &quot;Wins&quot;, title = &quot;Chris Paul leads the Clippers to 52 wins in 2014&quot;, subtitle = &quot;When Paul Leaves assists and wins go down&quot;, caption = &quot;Source: Basketball Reference | By: Scottie Spinazola&quot;) +
+  theme_minimal()</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <pre class="r"><code>library(rtweet)</code></pre>
