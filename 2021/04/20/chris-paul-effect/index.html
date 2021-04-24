@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">6 min read</span>
+    <span class="article-duration">8 min read</span>
     
 
     <h1 class="article-title">The Chris Paul Effect </h1>
@@ -160,7 +160,7 @@
   kable(escape=F) %&gt;% 
   kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;)) %&gt;%
   row_spec(5, bold = T, color = &quot;white&quot;, background = &quot;#FBB93C&quot;) %&gt;%
-  column_spec(1, bold=T)</code></pre>
+  column_spec(1, bold=T) </code></pre>
 <table class="table table-striped table-condensed" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -288,6 +288,100 @@ Gary Payton*
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>clippers2016 &lt;- read_csv(&quot;clippers2016-17 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>clippers2010 &lt;- read_csv(&quot;clippers2010-11 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>clippers2014 &lt;- read_csv(&quot;clippers2014-15 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>clippers2017 &lt;- read_csv(&quot;clippers2017-18 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>library(tidyverse)
+library(ggrepel) 
+library(scales)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;scales&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:formattable&#39;:
+## 
+##     comma, percent, scientific</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     discard</code></pre>
+<pre><code>## The following object is masked from &#39;package:readr&#39;:
+## 
+##     col_factor</code></pre>
+<pre class="r"><code>clipper_before_during_after &lt;- bind_rows(clippers2010, clippers2014, clippers2016, clippers2017)</code></pre>
+<pre class="r"><code>winlossclippers &lt;- clipper_before_during_after%&gt;% 
+  mutate(
+    wins = case_when(
+      grepl(&quot;W&quot;, Result) ~ 1, 
+      grepl(&quot;L&quot;, Result) ~ 0)
+)</code></pre>
+<pre class="r"><code>astdef &lt;- winlossclippers %&gt;% group_by(Year) %&gt;% 
+  summarise(
+    Wins = sum(wins), 
+    TotalAST = sum(AST)
+    )</code></pre>
+<pre class="r"><code>fit &lt;- lm(Wins ~ TotalAST, data = astdef)
+summary(fit)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Wins ~ TotalAST, data = astdef)
+## 
+## Residuals:
+##       1       2       3       4 
+## -7.7347 -1.4160  8.4265  0.7242 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept) -107.31167   87.88185  -1.221    0.346
+## TotalAST       0.08111    0.04667   1.738    0.224
+## 
+## Residual standard error: 8.166 on 2 degrees of freedom
+## Multiple R-squared:  0.6016, Adjusted R-squared:  0.4024 
+## F-statistic:  3.02 on 1 and 2 DF,  p-value: 0.2244</code></pre>
+<pre class="r"><code>clip2014 &lt;- astdef %&gt;% filter(Year == &quot;2014-15&quot;)
+
+clip2017 &lt;- astdef %&gt;% filter(Year == &quot;2017-18&quot;)
+
+ggplot() + 
+  geom_point(data=astdef, aes(x=TotalAST, y=Wins))+
+  geom_smooth(data=astdef, aes(x=TotalAST, y=Wins), method=&quot;lm&quot;)+
+  geom_point(data=clip2014, aes(x=TotalAST, y=Wins), color=&quot;green&quot;) + geom_point(data=clip2017, aes(x=TotalAST, y=Wins), color=&quot;red&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <pre class="r"><code>library(rtweet)</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;rtweet&#39;</code></pre>
@@ -353,7 +447,7 @@ library(lubridate)</code></pre>
   geom_step(data = diffscorerockets, aes(x = Game, y = CumDiff, group = Year, color = Year)) +
   labs(x = &quot;Game&quot;, y = &quot;Cumulative Point Differential&quot;, title = &quot;Houston Rockets take huge leap after Chris Paul comes to H-Town&quot;, subtitle = &quot;Was Russel Westbrook a good adition in 2019-20?&quot;, caption = &quot;Source: Basketball Reference | By Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
-<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <pre class="r"><code>okc2018 &lt;- read_csv(&quot;okc2018-19 - Sheet1.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -393,7 +487,7 @@ library(lubridate)</code></pre>
   geom_step(data = diffscore, aes(x = Game, y = CumDiff, group = Year, color = Year)) + 
   labs(x = &quot;Game&quot;, y = &quot;Cumulative Point Differential&quot;, title = &quot;The 2020-21 Oklahoma State Thunder Dip after Chris Paul Leaves&quot;, subtitle = &quot;Wonder what would have happened if Covid-19 did happen in 2020&quot;, caption = &quot;Source: Basketball Reference | By Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
-<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <pre class="r"><code>suns2019 &lt;- read_csv(&quot;suns2019-20 - Sheet1.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -423,7 +517,7 @@ library(lubridate)</code></pre>
   geom_step(data = diffscore, aes(x = Game, y = CumDiff, group = Year, color = Year)) + 
   labs(x = &quot;Game&quot;, y = &quot;Cumulative Point Differential&quot;, title = &quot;The 2020-21 Suns through 58 games show Dominance&quot;, subtitle = &quot;If you can&#39;t tell Chris Paul joined the team this year&quot;, caption = &quot;Source: Basketball Reference | By Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
-<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 
     </div>
   </article>
