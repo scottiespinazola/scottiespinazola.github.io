@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">8 min read</span>
+    <span class="article-duration">9 min read</span>
     
 
     <h1 class="article-title">The Chris Paul Effect </h1>
@@ -308,7 +308,47 @@ Gary Payton*
 ##   Result = col_character()
 ## )
 ## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>clippers2011 &lt;- read_csv(&quot;clipper2011-12 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>clippers2012 &lt;- read_csv(&quot;clippers2012-13 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>clippers2013 &lt;- read_csv(&quot;clippers2013-14 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
 <pre class="r"><code>clippers2014 &lt;- read_csv(&quot;clippers2014-15 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>clippers2015 &lt;- read_csv(&quot;clippers2015-16 - Sheet1.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
@@ -342,7 +382,7 @@ library(scales)</code></pre>
 <pre><code>## The following object is masked from &#39;package:readr&#39;:
 ## 
 ##     col_factor</code></pre>
-<pre class="r"><code>clipper_before_during_after &lt;- bind_rows(clippers2010, clippers2014, clippers2016, clippers2017)</code></pre>
+<pre class="r"><code>clipper_before_during_after &lt;- bind_rows(clippers2010, clippers2011, clippers2012, clippers2013, clippers2014, clippers2015, clippers2016, clippers2017)</code></pre>
 <pre class="r"><code>winlossclippers &lt;- clipper_before_during_after%&gt;% 
   mutate(
     wins = case_when(
@@ -352,35 +392,37 @@ library(scales)</code></pre>
 <pre class="r"><code>astdef &lt;- winlossclippers %&gt;% group_by(Year) %&gt;% 
   summarise(
     Wins = sum(wins), 
-    TotalAST = sum(AST)
+    avgAST = mean(AST)
     )</code></pre>
-<pre class="r"><code>fit &lt;- lm(Wins ~ TotalAST, data = astdef)
+<pre class="r"><code>fit &lt;- lm(Wins ~ avgAST, data = astdef)
 summary(fit)</code></pre>
 <pre><code>## 
 ## Call:
-## lm(formula = Wins ~ TotalAST, data = astdef)
+## lm(formula = Wins ~ avgAST, data = astdef)
 ## 
 ## Residuals:
-##       1       2       3       4 
-## -7.7347 -1.4160  8.4265  0.7242 
+##     Min      1Q  Median      3Q     Max 
+## -11.305  -2.416   1.187   3.616   5.555 
 ## 
 ## Coefficients:
-##               Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept) -107.31167   87.88185  -1.221    0.346
-## TotalAST       0.08111    0.04667   1.738    0.224
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)  -81.812     39.969  -2.047   0.0866 .
+## avgAST         5.659      1.735   3.262   0.0172 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 8.166 on 2 degrees of freedom
-## Multiple R-squared:  0.6016, Adjusted R-squared:  0.4024 
-## F-statistic:  3.02 on 1 and 2 DF,  p-value: 0.2244</code></pre>
-<pre class="r"><code>clip2014 &lt;- astdef %&gt;% filter(Year == &quot;2014-15&quot;)
+## Residual standard error: 5.994 on 6 degrees of freedom
+## Multiple R-squared:  0.6394, Adjusted R-squared:  0.5793 
+## F-statistic: 10.64 on 1 and 6 DF,  p-value: 0.01721</code></pre>
+<pre class="r"><code>clip2013 &lt;- astdef %&gt;% filter(Year == &quot;2013-14&quot;)
 
-clip2017 &lt;- astdef %&gt;% filter(Year == &quot;2017-18&quot;)
+clip2010 &lt;- astdef %&gt;% filter(Year == &quot;2010-2011&quot;)
 
 ggplot() + 
-  geom_point(data=astdef, aes(x=TotalAST, y=Wins))+
-  geom_smooth(data=astdef, aes(x=TotalAST, y=Wins), method=&quot;lm&quot;)+
-  geom_point(data=clip2014, aes(x=TotalAST, y=Wins), color=&quot;green&quot;) + geom_point(data=clip2017, aes(x=TotalAST, y=Wins), color=&quot;red&quot;) +
-  labs(x = &quot;Total Assists&quot;, y = &quot;Wins&quot;, title = &quot;Chris Paul leads the Clippers to 52 wins in 2014-15&quot;, subtitle = &quot;When Paul Leaves Lob city loses one of its key factors&quot;, caption = &quot;Source: Basketball Reference | By: Scottie Spinazola&quot;) +
+  geom_point(data=astdef, aes(x=avgAST, y=Wins))+
+  geom_smooth(data=astdef, aes(x=avgAST, y=Wins), method=&quot;lm&quot;)+
+  geom_point(data=clip2013, aes(x=avgAST, y=Wins), color=&quot;green&quot;) + geom_point(data=clip2010, aes(x=avgAST, y=Wins), color=&quot;red&quot;) +
+  labs(x = &quot;Average Assists&quot;, y = &quot;Wins&quot;, title = &quot;Chris Paul leads the Clippers to 57 wins in 2013-14&quot;, subtitle = &quot;Before Paul comes to Lob City it was vancant&quot;, caption = &quot;Source: Basketball Reference | By: Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
