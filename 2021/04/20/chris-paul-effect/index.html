@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">16 min read</span>
+    <span class="article-duration">19 min read</span>
     
 
     <h1 class="article-title">The Chris Paul Effect </h1>
@@ -600,6 +600,8 @@ ggplot() +
 <p>Paul had something very special around him with the Clippers in what they called Lob City. Which populated Paul, Blake Griffin and Deandre Jordan.</p>
 <p>Both of Paul’s teammates would go on to not replicate what numbers they put up with Paul but both are now with the Net’s and the finals could come down to Paul’s Suns and the Nets.</p>
 <p>so I guess we still aren’t to sure about everything are we?</p>
+<p>This is actually when things start to heat up, another pun since we are going to be talking about the Rockets, Thunder, and suns.</p>
+<p>But first the Rockets.</p>
 <pre class="r"><code>library(rtweet)</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;rtweet&#39;</code></pre>
@@ -652,6 +654,7 @@ library(lubridate)</code></pre>
 ## )
 ## ℹ Use `spec()` for the full column specifications.</code></pre>
 <pre class="r"><code>rockets_before_during_after &lt;- bind_rows(rockets2016, rockets2017, rockets2018,rockets2019)</code></pre>
+<p>The Rockets were a solid team before Paul came into town but one that was just ran by James Harden. When Paul came to H-town it took a little bit but things go on track as we look at the Point differential for the rockets before, during, and after Paul was with the team.</p>
 <pre class="r"><code>diffscorerockets &lt;- rockets_before_during_after %&gt;% 
   mutate(Differential = TmScore - OppScore) %&gt;% 
   group_by(Year) %&gt;% 
@@ -661,6 +664,11 @@ library(lubridate)</code></pre>
   labs(x = &quot;Game&quot;, y = &quot;Cumulative Point Differential&quot;, title = &quot;Houston Rockets take huge leap after Chris Paul comes to H-Town&quot;, subtitle = &quot;Was Russel Westbrook a good adition in 2019-20?&quot;, caption = &quot;Source: Basketball Reference | By Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
 <p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p>Like I said and the chart will show the rockets were a solid team as the year before Paul came to the team was the second best year, but the first was the first season he was with the team in 2017-18.</p>
+<p>The Point differential jumps a big gap the first season with the team and then as the rockets have always done it starts to go down but isn’t until Paul gets traded does the team hit its lowest point.
+A lot can be discussed about the season following the trade, Russel Westbrook is not Paul and that shows. Westbrook is what some will call an isolation player (looks for one on ones) and Paul is a team player, playing with Harden who is also an isolation player was something that Paul was thinking of but I guess the rockets didn’t care.</p>
+<p>As said Westbrook was sent to the rockets and Paul was sent “back” to OKC to play with the thunder.</p>
+<p>And what I will say started this whole project was the information about to come with his time as a thunder.</p>
 <pre class="r"><code>okc2018 &lt;- read_csv(&quot;okc2018-19 - Sheet1.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -698,9 +706,17 @@ library(lubridate)</code></pre>
   mutate(CumDiff = cumsum(Differential))</code></pre>
 <pre class="r"><code>ggplot() +
   geom_step(data = diffscore, aes(x = Game, y = CumDiff, group = Year, color = Year)) + 
-  labs(x = &quot;Game&quot;, y = &quot;Cumulative Point Differential&quot;, title = &quot;The 2020-21 Oklahoma State Thunder Dip after Chris Paul Leaves&quot;, subtitle = &quot;Wonder what would have happened if Covid-19 did happen in 2020&quot;, caption = &quot;Source: Basketball Reference | By Scottie Spinazola&quot;) +
+  labs(x = &quot;Game&quot;, y = &quot;Cumulative Point Differential&quot;, title = &quot;The 2020-21 Oklahoma State Thunder Dip after Chris Paul Leaves&quot;, subtitle = &quot;Wonder what would have happened if Covid-19 didn&#39;t happen in 2020&quot;, caption = &quot;Source: Basketball Reference | By Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
 <p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p>Again the point differential strikes yet again, with OKC it is going to take a little bit to make all of this make sense. OKC was a solid team before Paul came mister triple double and other key part in the trade Russel Westbrook had them very competitive.</p>
+<p>Also what needs to be said about the green line and the one year Paul was with the Thunder is that you will see the season was shorter, because of Covid-19, the bubble really changed the whole NBA map for the playoffs and the rest of the year.</p>
+<p>OKC was not going to win the finals at the end of the year reguardless but Paul took a semi small ball team into a team that was very competitive and was beating quality teams.</p>
+<p>Almost like someone had wrote it to be in the first round of the playoffs the Thunder go up against the Rockets.</p>
+<p>The thunder lost in seven games but if you were a basketball fan that year the thunder getting into the playoffs was a joke thought at the beginning of the year but them taking a two all-star team rockets to seven games is most impressive.</p>
+<p>But Paul then gets to see free agency since the trade to OKC wasn’t Paul’s idea.</p>
+<p>He picks the suns. Which is a team that just had the first overall pick and had Devin Booker who was playing like an MVP in the bubble.</p>
+<p>But was not a team that was thinking of winning soon.</p>
 <pre class="r"><code>suns2019 &lt;- read_csv(&quot;suns2019-20 - Sheet1.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -731,6 +747,9 @@ library(lubridate)</code></pre>
   labs(x = &quot;Game&quot;, y = &quot;Cumulative Point Differential&quot;, title = &quot;The 2020-21 Suns through 58 games show Dominance&quot;, subtitle = &quot;If you can&#39;t tell Chris Paul joined the team this year&quot;, caption = &quot;Source: Basketball Reference | By Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
 <p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p>And the shows with the point differential chart above. The 2019-20 season was a Covid/Bubble year and showed the Booker can put up numbers but did not mean that the suns were a good competitive team.</p>
+<p>Paul comes to town and like magic The Suns 58 games (the games that were played at the time that I pulled it) sit as second in the western conference and has the second best record in the whole NBA.</p>
+<p>Reread it if you need to because those statements are real and show that maybe Chris Paul can be that I in team.</p>
 
     </div>
   </article>
