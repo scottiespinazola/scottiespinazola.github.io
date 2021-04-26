@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">9 min read</span>
+    <span class="article-duration">11 min read</span>
     
 
     <h1 class="article-title">The Chris Paul Effect </h1>
@@ -288,6 +288,109 @@ Gary Payton*
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>library(tidyverse)
+
+library(lubridate)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     date, intersect, setdiff, union</code></pre>
+<pre class="r"><code>hornets04 &lt;- read_csv(&quot;hornets2004-05 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>hornets05 &lt;- read_csv(&quot;hornets2005-06 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>hornets06 &lt;- read_csv(&quot;hornets2006-07 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>hornets07 &lt;- read_csv(&quot;hornets2007-08 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>hornets08 &lt;- read_csv(&quot;hornets2008-2009 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>hornets09 &lt;- read_csv(&quot;hornets2009-10 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>hornets10 &lt;- read_csv(&quot;hornets2010-11 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>hornets11 &lt;- read_csv(&quot;Hornets2011-12 - Sheet1.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Opp = col_character(),
+##   Year = col_character(),
+##   Result = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>hornets_before_during_after &lt;- bind_rows(hornets04, hornets05, hornets06, hornets07, hornets08, hornets09, hornets10, hornets11)</code></pre>
+<pre class="r"><code>winlosshornets &lt;- hornets_before_during_after %&gt;% mutate(winloss = case_when(
+  grepl(&quot;W&quot;, Result) ~ 1, 
+  grepl(&quot;L&quot;, Result) ~ 0)
+)</code></pre>
+<pre class="r"><code>years &lt;- winlosshornets %&gt;% 
+  group_by(Year, Opp) %&gt;% 
+  summarize(wins = sum(winloss))</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;Year&#39;. You can override using the `.groups` argument.</code></pre>
+<pre class="r"><code>ggplot() + 
+  geom_bar(data=years, aes(x=Year, weight=wins, fill=Opp)) + 
+  theme_minimal()+ 
+  coord_polar() +
+  labs(title = &quot;Chris Paul Equals Wins&quot;, subtitle = &quot;Foreshadowing to what is to come&quot;, caption = &quot;Source: Basketball Reference | By: Scottie Spinazola&quot;)</code></pre>
+<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <pre class="r"><code>clippers2016 &lt;- read_csv(&quot;clippers2016-17 - Sheet1.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -425,7 +528,7 @@ ggplot() +
   labs(x = &quot;Average Assists&quot;, y = &quot;Wins&quot;, title = &quot;Chris Paul leads the Clippers to 57 wins in 2013-14&quot;, subtitle = &quot;Before Paul comes to Lob City it was vancant&quot;, caption = &quot;Source: Basketball Reference | By: Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <pre class="r"><code>library(rtweet)</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;rtweet&#39;</code></pre>
@@ -437,11 +540,6 @@ ggplot() +
 library(tidyverse)
 
 library(lubridate)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     date, intersect, setdiff, union</code></pre>
 <pre class="r"><code>rockets2016 &lt;- read_csv(&quot;rockets2016-17 - Sheet1.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -491,7 +589,7 @@ library(lubridate)</code></pre>
   geom_step(data = diffscorerockets, aes(x = Game, y = CumDiff, group = Year, color = Year)) +
   labs(x = &quot;Game&quot;, y = &quot;Cumulative Point Differential&quot;, title = &quot;Houston Rockets take huge leap after Chris Paul comes to H-Town&quot;, subtitle = &quot;Was Russel Westbrook a good adition in 2019-20?&quot;, caption = &quot;Source: Basketball Reference | By Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
-<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <pre class="r"><code>okc2018 &lt;- read_csv(&quot;okc2018-19 - Sheet1.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -531,7 +629,7 @@ library(lubridate)</code></pre>
   geom_step(data = diffscore, aes(x = Game, y = CumDiff, group = Year, color = Year)) + 
   labs(x = &quot;Game&quot;, y = &quot;Cumulative Point Differential&quot;, title = &quot;The 2020-21 Oklahoma State Thunder Dip after Chris Paul Leaves&quot;, subtitle = &quot;Wonder what would have happened if Covid-19 did happen in 2020&quot;, caption = &quot;Source: Basketball Reference | By Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
-<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <pre class="r"><code>suns2019 &lt;- read_csv(&quot;suns2019-20 - Sheet1.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -561,7 +659,7 @@ library(lubridate)</code></pre>
   geom_step(data = diffscore, aes(x = Game, y = CumDiff, group = Year, color = Year)) + 
   labs(x = &quot;Game&quot;, y = &quot;Cumulative Point Differential&quot;, title = &quot;The 2020-21 Suns through 58 games show Dominance&quot;, subtitle = &quot;If you can&#39;t tell Chris Paul joined the team this year&quot;, caption = &quot;Source: Basketball Reference | By Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
-<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 
     </div>
   </article>
