@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">14 min read</span>
+    <span class="article-duration">16 min read</span>
     
 
     <h1 class="article-title">The Chris Paul Effect </h1>
@@ -404,7 +404,11 @@ library(lubridate)</code></pre>
   labs(y = &quot;Wins&quot;, title = &quot;Chris Paul Equals Wins&quot;, subtitle = &quot;Foreshadowing to what is to come&quot;, caption = &quot;Source: Basketball Reference | By: Scottie Spinazola&quot;)</code></pre>
 <p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>As seen above in the circular chart when looking at just wins and nothing else the years were Paul is not with the Hornets they are not so good at winning basketball games, But the years that they have Paul they for some reason (being sarcastic) seem to win games.</p>
-<p>Paul in just around three seasons leads them to over 50 wins. A lot goes into a team, of course, but when the data is laid out infront of you it seeems to me that there is a specific key factor that the Hornets needed to win games.</p>
+<p>Paul in just around three seasons leads them to over 50 wins. A lot goes into a team, of course, but when the data is laid out in front of you it seems to me that there is a specific key factor that the Hornets needed to win games.</p>
+<p>Does this not seems to be swaying you enough?</p>
+<p>Alright well lets keep going then, With Paul being a Point Guard he is going to have the ball in his hands a lot (controlling the pace and starting the play are just somethings) and that will reflect on how well the offense will run.</p>
+<p>Now being even more specific the offense only will run well if you can shoot the ball, so an important factor that we can look at will be the field goal percentage.</p>
+<p>So what we will be looking at will be the wins and field goal percentage over the years and so if there is a correlation through a p-value and a chart.</p>
 <pre class="r"><code>winlosslogs &lt;- hornets_before_during_after %&gt;% mutate(winloss = case_when(
   grepl(&quot;W&quot;, Result) ~ 1, 
   grepl(&quot;L&quot;, Result) ~ 0)
@@ -427,6 +431,10 @@ ggplot() +
   labs(x = &quot;Average Field Goal Percentage&quot;, title = &quot;Chris Paul makes the Hornets a force in just four years&quot;, subtitle = &quot;Hornets weren&#39;t looking so good before Paul&quot;, caption = &quot;Source: Basketball Reference | Scottie Spinazola&quot;)</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>Above you will see two dots that are colored around the positive correlation line, the green dot shows the best FG Percentage and wins year which was 2007-08 w/ Paul, and the red dot shows the worst year 2004-05 which is the year before Paul comes to the Hornets.</p>
+<p>But obviously when looking at the years the Hornets will be bad coming in seeng that they got Paul in the draft. But the second lowest dot on the chart is the year after Paul leaves.</p>
+<p>Are we convinced yet? NOO!</p>
+<p>But I understand since the p-value shows that this isn’t significant enough so lets move on.</p>
 <pre class="r"><code>fit &lt;- lm(Wins ~ avgFGPCT, data = hornetshooting)
 summary(fit)</code></pre>
 <pre><code>## 
@@ -447,6 +455,7 @@ summary(fit)</code></pre>
 ## Residual standard error: 10.11 on 6 degrees of freedom
 ## Multiple R-squared:  0.4893, Adjusted R-squared:  0.4042 
 ## F-statistic:  5.75 on 1 and 6 DF,  p-value: 0.05345</code></pre>
+<p>Alrighty well then lets look at when Paul heads from the South to LA with the Clippers, again the data will be before, during his time with the team, and After he leaves.</p>
 <pre class="r"><code>clippers2016 &lt;- read_csv(&quot;clippers2016-17 - Sheet1.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -542,6 +551,7 @@ library(scales)</code></pre>
 ## 
 ##     col_factor</code></pre>
 <pre class="r"><code>clipper_before_during_after &lt;- bind_rows(clippers2010, clippers2011, clippers2012, clippers2013, clippers2014, clippers2015, clippers2016, clippers2017)</code></pre>
+<p>of course still going to be looking at the wins because that does show when the overall team is good but this time with another key stat from Paul being a point guard and also just his talents. We will be looking at assists.</p>
 <pre class="r"><code>winlossclippers &lt;- clipper_before_during_after%&gt;% 
   mutate(
     wins = case_when(
@@ -553,6 +563,7 @@ library(scales)</code></pre>
     Wins = sum(wins), 
     avgAST = mean(AST)
     )</code></pre>
+<p>This time going into seeing the chart the p-value is strong enough to say the correlation means something significant.</p>
 <pre class="r"><code>fit &lt;- lm(Wins ~ avgAST, data = astdef)
 summary(fit)</code></pre>
 <pre><code>## 
