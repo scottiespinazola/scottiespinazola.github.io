@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">11 min read</span>
+    <span class="article-duration">12 min read</span>
     
 
     <h1 class="article-title">The Chris Paul Effect </h1>
@@ -389,8 +389,50 @@ library(lubridate)</code></pre>
   geom_bar(data=years, aes(x=Year, weight=wins, fill=Opp)) + 
   theme_minimal()+ 
   coord_polar() +
-  labs(title = &quot;Chris Paul Equals Wins&quot;, subtitle = &quot;Foreshadowing to what is to come&quot;, caption = &quot;Source: Basketball Reference | By: Scottie Spinazola&quot;)</code></pre>
+  labs(y = &quot;Wins&quot;, title = &quot;Chris Paul Equals Wins&quot;, subtitle = &quot;Foreshadowing to what is to come&quot;, caption = &quot;Source: Basketball Reference | By: Scottie Spinazola&quot;)</code></pre>
 <p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r"><code>winlosslogs &lt;- hornets_before_during_after %&gt;% mutate(winloss = case_when(
+  grepl(&quot;W&quot;, Result) ~ 1, 
+  grepl(&quot;L&quot;, Result) ~ 0)
+)</code></pre>
+<pre class="r"><code>hornetshooting &lt;- winlosslogs %&gt;% 
+  group_by(Year) %&gt;% 
+  summarise(
+    Wins = sum(winloss), 
+    avgFGPCT = mean(FGPCT)
+    )</code></pre>
+<pre class="r"><code>hornet78 &lt;- hornetshooting %&gt;% filter(Year == &quot;2007-2008&quot;)
+
+hornet45 &lt;- hornetshooting %&gt;% filter(Year == &quot;2004-2005&quot;)
+
+ggplot() + 
+  geom_point(data=hornetshooting, aes(x=avgFGPCT, y=Wins)) +
+  geom_smooth(data=hornetshooting, aes(x=avgFGPCT, y=Wins), method=&quot;lm&quot;)+
+  geom_point(data=hornet45, aes(x=avgFGPCT, y=Wins), color=&quot;red&quot;) +
+  geom_point(data=hornet78, aes(x=avgFGPCT, y=Wins), color=&quot;green&quot;) +
+  labs(x = &quot;Average Field Goal Percentage&quot;, title = &quot;Chris Paul makes the Hornets a force in just four years&quot;, subtitle = &quot;Hornets weren&#39;t looking so good before Paul&quot;, caption = &quot;Source: Basketball Reference | Scottie Spinazola&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<pre class="r"><code>fit &lt;- lm(Wins ~ avgFGPCT, data = hornetshooting)
+summary(fit)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Wins ~ avgFGPCT, data = hornetshooting)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -18.251  -2.754   3.096   5.594   9.779 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)   -209.3      103.2  -2.028   0.0889 .
+## avgFGPCT       548.8      228.9   2.398   0.0535 .
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.11 on 6 degrees of freedom
+## Multiple R-squared:  0.4893, Adjusted R-squared:  0.4042 
+## F-statistic:  5.75 on 1 and 6 DF,  p-value: 0.05345</code></pre>
 <pre class="r"><code>clippers2016 &lt;- read_csv(&quot;clippers2016-17 - Sheet1.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -528,7 +570,7 @@ ggplot() +
   labs(x = &quot;Average Assists&quot;, y = &quot;Wins&quot;, title = &quot;Chris Paul leads the Clippers to 57 wins in 2013-14&quot;, subtitle = &quot;Before Paul comes to Lob City it was vancant&quot;, caption = &quot;Source: Basketball Reference | By: Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <pre class="r"><code>library(rtweet)</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;rtweet&#39;</code></pre>
@@ -589,7 +631,7 @@ library(lubridate)</code></pre>
   geom_step(data = diffscorerockets, aes(x = Game, y = CumDiff, group = Year, color = Year)) +
   labs(x = &quot;Game&quot;, y = &quot;Cumulative Point Differential&quot;, title = &quot;Houston Rockets take huge leap after Chris Paul comes to H-Town&quot;, subtitle = &quot;Was Russel Westbrook a good adition in 2019-20?&quot;, caption = &quot;Source: Basketball Reference | By Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
-<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <pre class="r"><code>okc2018 &lt;- read_csv(&quot;okc2018-19 - Sheet1.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -629,7 +671,7 @@ library(lubridate)</code></pre>
   geom_step(data = diffscore, aes(x = Game, y = CumDiff, group = Year, color = Year)) + 
   labs(x = &quot;Game&quot;, y = &quot;Cumulative Point Differential&quot;, title = &quot;The 2020-21 Oklahoma State Thunder Dip after Chris Paul Leaves&quot;, subtitle = &quot;Wonder what would have happened if Covid-19 did happen in 2020&quot;, caption = &quot;Source: Basketball Reference | By Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
-<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <pre class="r"><code>suns2019 &lt;- read_csv(&quot;suns2019-20 - Sheet1.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -659,7 +701,7 @@ library(lubridate)</code></pre>
   geom_step(data = diffscore, aes(x = Game, y = CumDiff, group = Year, color = Year)) + 
   labs(x = &quot;Game&quot;, y = &quot;Cumulative Point Differential&quot;, title = &quot;The 2020-21 Suns through 58 games show Dominance&quot;, subtitle = &quot;If you can&#39;t tell Chris Paul joined the team this year&quot;, caption = &quot;Source: Basketball Reference | By Scottie Spinazola&quot;) +
   theme_minimal()</code></pre>
-<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p><img src="http://scottiespinazola.github.io/2021/04/20/chris-paul-effect/index_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 
     </div>
   </article>
