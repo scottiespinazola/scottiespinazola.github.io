@@ -6,7 +6,18 @@
     <description>Recent content on Scottie Spinazola&#39;s website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://scottiespinazola.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://scottiespinazola.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>I am not messing with any sort of gambling anytime soon</title>
+      <link>http://scottiespinazola.github.io/2022/05/10/i-am-not-messing-with-any-sort-of-gambling-anytime-soon/</link>
+      <pubDate>Tue, 10 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://scottiespinazola.github.io/2022/05/10/i-am-not-messing-with-any-sort-of-gambling-anytime-soon/</guid>
+      <description>Hello again.
+Another algorithm, another blog post and a lot of frustrated at basketball moments.
+When starting this assignment of predicting and gambling on NBA games we first started out with a very simple model. One that just involved three features; turnover percentage, offensive efficiency and a free throw factor. After dealing with that pile of crap I decided to go back to what makes the most sense to me which is making a very balanced algorithm.</description>
+    </item>
+    
     <item>
       <title>The one true perfect bracket, well at least that&#39;s what my mom told me</title>
       <link>http://scottiespinazola.github.io/2022/04/04/the-one-true-perfect-bracket-well-at-least-that-s-what-my-mom-told-me/</link>
