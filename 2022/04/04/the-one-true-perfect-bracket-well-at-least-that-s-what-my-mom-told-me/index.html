@@ -1,0 +1,2048 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.81.0" />
+
+
+<title>The one true perfect bracket, well at least that&#39;s what my mom told me - Scottie Spinazola&#39;s website</title>
+<meta property="og:title" content="The one true perfect bracket, well at least that&#39;s what my mom told me - Scottie Spinazola&#39;s website">
+
+
+  <link href='http://scottiespinazola.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/scottiespinazola">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/scottspinazola">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">36 min read</span>
+    
+
+    <h1 class="article-title">The one true perfect bracket, well at least that&#39;s what my mom told me</h1>
+
+    
+    <span class="article-date">2022-04-04</span>
+    
+
+    <div class="article-content">
+      
+
+
+<p>So the time has finally come. I am excited and nervous.</p>
+<p>I feel like I am playing in the tournament but that is far from the truth. I played organized basketball for about three years, I think I scored a handful of baskets. I played before my growth spurt so I think that has a lot to do why I am not playing in college right now and preparing for a long NBA career. I am confident that is the soul reason.</p>
+<p>When I played I remember also taking care of the ball as that is the most important part of trying to score. Can not score if you don’t have the ball. As well as you can not shot free throws if you don’t have the ball. Those are just poetic ways to say that I will be leading the metrics with rolling turnover percentage as well as rolling free throw percentage coupled with a metric that ranks the schools for how many times they get to the line.</p>
+<p>Taking turnovers, an offense can not survive on limited possession and repeatibly shooting themselves in the foot. This makes the most sense; you have more possessions you score more; you score more, with a little help from defense, you win more games; you win more games you make my metric the best in the class. That is all sound logic and I will not be questioning it. Well maybe a little.</p>
+<p>Second most important is the free throws. When you think of the best players in theh NBA you like of Brooklyn Nets forward Kevin Durant, Philadelphia 76ers forward/center Joel Embid coupled with teammate guard James Hardin, Chicago Bulls forward Demar Derozen, Dallas Mavericks guard Luka Doncic, Memphis Grizzlies guard Ja Morant and Bucks center Giannas (no chance I spell his name out). what do all of them have in common. They know how to get to the line. Getting to the line is the first piece of the puzzle. Why? Because the name speaks for themselves. FREE throws. free points. And then once you get to the line converting those FREE points into actual points is the real importance. The team who gets the most free points usually wins.</p>
+<p>After those metrics the thought process really started. Trying to figure out what all goes into winning basketball got me watching it more. While watching the games I had to focus so I hope me using this class as an excuse to not do all of my other homework was okay. Just joking. But I have been watching more to understand the story of the stats more.</p>
+<p>And in doing so the metrics I thought deeper about was effective field goal percentage, rebounding, offensive rating and defensive efficiency.</p>
+<p>I think the first three in that list do not need more explaining other than this. If you shoot effecive shots and they go in the majority of the time you win. If you out-rebound the other team it gives you more second chance points as well as holding the other team to limited second chance points. You win the game.</p>
+<p>Eficiencies are where it becomes just a very simple case. When any time playing any sport defense tends to way more when it comes to the playoffs and big games. Offenses can function but a defense getting a spot will, for the most part, give the whole story. Defensive efficiency will give a good basis of what defenses are the best in the country and how they have stacked up the whole season. But like we just said. Offenses have to score. And if I have taken anything from the eight weeks that I have been in management class it is that efficiency weighs more than effort. offensive efficiency should be in everyones metric and it will be in mine.
+Just as the march madness bracket, usually, is this could be fluid. I am confident in my sports knowledge to try and think of the major challeneges that teams come up with. Hopefully I can put it to use in this bracket challenge we have. With that being said the method that I will be using will be the logistic regression.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
+## ✓ tibble  3.1.6     ✓ dplyr   1.0.8
+## ✓ tidyr   1.1.4     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.1</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.0.5</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(tidymodels)</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;tune&#39;:
+##   method                   from   
+##   required_pkgs.model_spec parsnip</code></pre>
+<pre><code>## ── Attaching packages ────────────────────────────────────── tidymodels 0.1.4 ──</code></pre>
+<pre><code>## ✓ broom        0.7.11     ✓ rsample      0.1.1 
+## ✓ dials        0.0.10     ✓ tune         0.1.6 
+## ✓ infer        1.0.0      ✓ workflows    0.2.4 
+## ✓ modeldata    0.1.1      ✓ workflowsets 0.1.0 
+## ✓ parsnip      0.1.7      ✓ yardstick    0.0.9 
+## ✓ recipes      0.1.17</code></pre>
+<pre><code>## ── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
+## x scales::discard() masks purrr::discard()
+## x dplyr::filter()   masks stats::filter()
+## x recipes::fixed()  masks stringr::fixed()
+## x dplyr::lag()      masks stats::lag()
+## x yardstick::spec() masks readr::spec()
+## x recipes::step()   masks stats::step()
+## • Dig deeper into tidy modeling with R at https://www.tmwr.org</code></pre>
+<pre class="r"><code>library(zoo)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;zoo&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     as.Date, as.Date.numeric</code></pre>
+<pre class="r"><code>library(hoopR)
+
+set.seed(1234)</code></pre>
+<pre class="r"><code>teamgames &lt;- load_mbb_team_box(seasons = 2015:2022) %&gt;%
+  separate(field_goals_made_field_goals_attempted, into = c(&quot;field_goals_made&quot;,&quot;field_goals_attempted&quot;)) %&gt;%
+  separate(three_point_field_goals_made_three_point_field_goals_attempted, into = c(&quot;three_point_field_goals_made&quot;,&quot;three_point_field_goals_attempted&quot;)) %&gt;%
+  separate(free_throws_made_free_throws_attempted, into = c(&quot;free_throws_made&quot;,&quot;free_throws_attempted&quot;)) %&gt;%
+  mutate_at(12:34, as.numeric)</code></pre>
+<pre class="r"><code>teamstats &lt;- teamgames %&gt;% 
+  group_by(team_short_display_name, season) %&gt;%
+  arrange(game_date) %&gt;%
+  mutate(
+    team_score = ((field_goals_made-three_point_field_goals_made) * 2) + (three_point_field_goals_made*3) + free_throws_made,
+    possessions = field_goals_attempted - offensive_rebounds + turnovers + (.475 * free_throws_attempted),
+    offensive_efficiency = (team_score/possessions)*100,
+    true_shooting_percentage = (team_score / (2*(field_goals_attempted + (.44 * free_throws_attempted)))) * 100,
+    turnover_pct = turnovers/(field_goals_attempted + 0.44 * free_throws_attempted + turnovers),
+    free_throw_factor = free_throws_made/field_goals_attempted,
+    team_rolling_true_shooting_percentage = rollmean(true_shooting_percentage, k=10, align=&quot;right&quot;, fill=NA),
+    team_rolling_turnover_percentage = rollmean(turnover_pct, k=10, align=&quot;right&quot;, fill=NA),
+    team_rolling_free_throw_factor = rollmean(free_throw_factor, k=10, align=&quot;right&quot;, fill=NA),
+    team_rolling_off_ef = rollmean(offensive_efficiency, k=10, align=&quot;right&quot;, fill=NA)
+  ) %&gt;% ungroup()
+
+teamstats &lt;- teamstats %&gt;% 
+  select(game_id, team_id, offensive_efficiency) %&gt;%
+  mutate(team_id = as.numeric(team_id)) %&gt;% 
+  rename(opponent_id = team_id, opponent_offensive_efficiency=offensive_efficiency) %&gt;% 
+  left_join(teamstats) %&gt;%
+  group_by(team_short_display_name, season) %&gt;%
+  arrange(game_date) %&gt;%
+  mutate(
+    team_rolling_d_eff = rollmean(lag(opponent_offensive_efficiency, n=1), k=10, align=&quot;right&quot;, fill=NA)
+    ) %&gt;% ungroup()</code></pre>
+<pre><code>## Joining, by = c(&quot;game_id&quot;, &quot;opponent_id&quot;)</code></pre>
+<pre class="r"><code>opponent &lt;- teamstats %&gt;% select(game_id, team_id, offensive_rebounds, defensive_rebounds, offensive_efficiency) %&gt;% rename(opponent_id=team_id, opponent_offensive_rebounds = offensive_rebounds, opponent_defensive_rebounds=defensive_rebounds, opponent_off_eff=offensive_efficiency) %&gt;% mutate(opponent_id = as.numeric(opponent_id))
+
+newteamstats &lt;- teamstats %&gt;% 
+  inner_join(opponent) %&gt;% 
+  mutate(
+    orb = offensive_rebounds / (offensive_rebounds + opponent_defensive_rebounds),
+    drb = defensive_rebounds / (opponent_offensive_rebounds + defensive_rebounds),
+    team_rolling_orb = rollmean(orb, k=10, align=&quot;right&quot;, fill=NA),
+    team_rolling_drb = rollmean(drb, k=10, align=&quot;right&quot;, fill=NA)
+    )</code></pre>
+<pre><code>## Joining, by = c(&quot;game_id&quot;, &quot;opponent_id&quot;)</code></pre>
+<pre class="r"><code>team_side &lt;- newteamstats %&gt;%
+  select(game_id, team_id, team_short_display_name, opponent_id, game_date, season, team_score, team_rolling_true_shooting_percentage, team_rolling_free_throw_factor, team_rolling_turnover_percentage, team_rolling_orb, team_rolling_drb, team_rolling_d_eff, team_rolling_off_ef, team_rolling_d_eff) %&gt;% na.omit()
+
+opponent_side &lt;- newteamstats %&gt;%
+  select(game_id, team_id, team_short_display_name, team_score, team_rolling_true_shooting_percentage, team_rolling_free_throw_factor, team_rolling_turnover_percentage, team_rolling_orb, team_rolling_drb, team_rolling_d_eff, team_rolling_off_ef) %&gt;% na.omit() %&gt;%
+  rename(
+    opponent_id = team_id,
+    opponent_short_display_name = team_short_display_name,
+    opponent_score = team_score,
+    opponent_rolling_true_shooting_percentage = team_rolling_true_shooting_percentage,
+    opponent_rolling_free_throw_factor = team_rolling_free_throw_factor,
+    opponent_rolling_turnover_percentage = team_rolling_turnover_percentage,
+    opponent_rolling_orb = team_rolling_orb,
+    opponent_rolling_drb = team_rolling_drb, 
+    opponent_rolling_off_ef = team_rolling_off_ef,
+    opponent_rolling_d_eff = team_rolling_d_eff
+  ) %&gt;%
+  mutate(opponent_id = as.numeric(opponent_id))
+
+games &lt;- team_side %&gt;% inner_join(opponent_side) %&gt;% mutate(
+  TeamResult = as.factor(case_when(
+    team_score &gt; opponent_score ~ &quot;W&quot;,
+    opponent_score &gt; team_score ~ &quot;L&quot;
+))) %&gt;% na.omit()</code></pre>
+<pre><code>## Joining, by = c(&quot;game_id&quot;, &quot;opponent_id&quot;)</code></pre>
+<pre class="r"><code>games$TeamResult &lt;- relevel(games$TeamResult, ref=&quot;W&quot;)
+
+rollingmodelgames &lt;- games %&gt;% select(game_id, game_date, team_short_display_name, opponent_short_display_name, season, team_rolling_true_shooting_percentage, team_rolling_free_throw_factor, team_rolling_turnover_percentage, team_rolling_orb, team_rolling_drb, opponent_rolling_true_shooting_percentage, opponent_rolling_free_throw_factor, opponent_rolling_turnover_percentage, opponent_rolling_orb, opponent_rolling_drb, team_rolling_d_eff, opponent_rolling_d_eff, team_rolling_off_ef, opponent_rolling_off_ef, TeamResult)</code></pre>
+<pre class="r"><code>rolling_split &lt;- initial_split(rollingmodelgames, prop = .8)
+rolling_train &lt;- training(rolling_split)
+rolling_test &lt;- testing(rolling_split)</code></pre>
+<pre class="r"><code>rolling_recipe &lt;- 
+  recipe(TeamResult ~ ., data = rolling_train) %&gt;% 
+  update_role(game_id, game_date, team_short_display_name, opponent_short_display_name, season, new_role = &quot;ID&quot;) %&gt;%
+  step_normalize(all_predictors())
+
+summary(rolling_recipe)</code></pre>
+<pre><code>## # A tibble: 20 × 4
+##    variable                                  type    role      source  
+##    &lt;chr&gt;                                     &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;   
+##  1 game_id                                   numeric ID        original
+##  2 game_date                                 date    ID        original
+##  3 team_short_display_name                   nominal ID        original
+##  4 opponent_short_display_name               nominal ID        original
+##  5 season                                    numeric ID        original
+##  6 team_rolling_true_shooting_percentage     numeric predictor original
+##  7 team_rolling_free_throw_factor            numeric predictor original
+##  8 team_rolling_turnover_percentage          numeric predictor original
+##  9 team_rolling_orb                          numeric predictor original
+## 10 team_rolling_drb                          numeric predictor original
+## 11 opponent_rolling_true_shooting_percentage numeric predictor original
+## 12 opponent_rolling_free_throw_factor        numeric predictor original
+## 13 opponent_rolling_turnover_percentage      numeric predictor original
+## 14 opponent_rolling_orb                      numeric predictor original
+## 15 opponent_rolling_drb                      numeric predictor original
+## 16 team_rolling_d_eff                        numeric predictor original
+## 17 opponent_rolling_d_eff                    numeric predictor original
+## 18 team_rolling_off_ef                       numeric predictor original
+## 19 opponent_rolling_off_ef                   numeric predictor original
+## 20 TeamResult                                nominal outcome   original</code></pre>
+<pre class="r"><code>log_mod &lt;- 
+  logistic_reg() %&gt;% 
+  set_engine(&quot;glm&quot;) %&gt;%
+  set_mode(&quot;classification&quot;)</code></pre>
+<pre class="r"><code>log_rolling_workflow &lt;- 
+  workflow() %&gt;% 
+  add_model(log_mod) %&gt;% 
+  add_recipe(rolling_recipe)</code></pre>
+<pre class="r"><code>log_rolling_fit &lt;- 
+  log_rolling_workflow %&gt;% 
+  fit(data = rolling_train)
+
+logrollingpredict &lt;- log_rolling_fit %&gt;% predict(new_data = rolling_train) %&gt;%
+  bind_cols(rolling_train) 
+
+logrollingpredict &lt;- log_rolling_fit %&gt;% predict(new_data = rolling_train, type=&quot;prob&quot;) %&gt;%
+  bind_cols(logrollingpredict)
+
+metrics(logrollingpredict, TeamResult, .pred_class)</code></pre>
+<pre><code>## # A tibble: 2 × 3
+##   .metric  .estimator .estimate
+##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
+## 1 accuracy binary         0.711
+## 2 kap      binary         0.422</code></pre>
+<pre class="r"><code>logrollingtest &lt;- rolling_test %&gt;%
+  bind_cols(predict(log_rolling_fit, rolling_test))
+
+metrics(logrollingtest, truth = TeamResult, estimate = .pred_class)</code></pre>
+<pre><code>## # A tibble: 2 × 3
+##   .metric  .estimator .estimate
+##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
+## 1 accuracy binary         0.717
+## 2 kap      binary         0.434</code></pre>
+<pre class="r"><code>#WEST_REGION
+
+#Round_of_64
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Gonzaga&quot;,
+  opponent_short_display_name=&quot;Georgia State&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 60.39169, 
+  opponent_rolling_true_shooting_percentage = 51.16064, 
+  team_rolling_turnover_percentage = 0.1403807,
+  opponent_rolling_turnover_percentage = 0.1447910,
+  team_rolling_free_throw_factor = 0.1992893,
+  opponent_rolling_free_throw_factor = 0.2711963,
+  team_rolling_orb = 0.2546847,
+  opponent_rolling_orb = 0.3142758,
+  team_rolling_drb = 0.7446604,
+  opponent_rolling_drb = 0.6998032,
+  team_rolling_d_eff = 87.29183,
+  opponent_rolling_d_eff = 88.28910,
+  team_rolling_off_ef = 113.7181,
+  opponent_rolling_off_ef = 103.09003
+  ) %&gt;% add_row(
+  game_id = 2,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Boise State&quot;,
+  opponent_short_display_name=&quot;Memphis&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 60.14856, 
+  opponent_rolling_true_shooting_percentage = 57.03457, 
+  team_rolling_turnover_percentage = 0.1611688,
+  opponent_rolling_turnover_percentage = 0.1959387,
+  team_rolling_free_throw_factor = 0.2699789,
+  opponent_rolling_free_throw_factor = 0.2829902,
+  team_rolling_orb = 0.2487945,
+  opponent_rolling_orb = 0.3228011,
+  team_rolling_drb = 0.7054032,
+  opponent_rolling_drb = 0.6771989,
+  team_rolling_d_eff = 101.35968,
+  opponent_rolling_d_eff = 94.77338,
+  team_rolling_off_ef = 112.20614,
+  opponent_rolling_off_ef = 105.24886
+  ) %&gt;% add_row(  
+  game_id = 3,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;UConn&quot;,
+  opponent_short_display_name=&quot;New Mexico St&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 52.40038, 
+  opponent_rolling_true_shooting_percentage = 55.00620, 
+  team_rolling_turnover_percentage = 0.1368471,
+  opponent_rolling_turnover_percentage = 0.1767494,
+  team_rolling_free_throw_factor = 0.1859373,
+  opponent_rolling_free_throw_factor = 0.22174217,
+  team_rolling_orb = 0.2904628,
+  opponent_rolling_orb = 0.2546139,
+  team_rolling_drb = 0.7095372,
+  opponent_rolling_drb = 0.7693156,
+  team_rolling_d_eff = 100.75280,
+  opponent_rolling_d_eff = 95.34678,
+  team_rolling_off_ef = 107.78800,
+  opponent_rolling_off_ef = 105.62307
+  ) %&gt;% add_row(
+  game_id = 4,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Arkansas&quot;,
+  opponent_short_display_name=&quot;Vermont&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 52.69242, 
+  opponent_rolling_true_shooting_percentage = 59.50318, 
+  team_rolling_turnover_percentage = 0.1492860,
+  opponent_rolling_turnover_percentage = 0.1242110,
+  team_rolling_free_throw_factor = 0.3131938,
+  opponent_rolling_free_throw_factor = 0.1960718,
+  team_rolling_orb = 0.3062315,
+  opponent_rolling_orb = 0.3010383,
+  team_rolling_drb = 0.6817230,
+  opponent_rolling_drb = 0.7175983,
+  team_rolling_d_eff = 94.43206,
+  opponent_rolling_d_eff = 86.38173,
+  team_rolling_off_ef = 102.63259,
+  opponent_rolling_off_ef = 116.95492
+  ) %&gt;% add_row(
+  game_id = 5,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot; Alabama&quot;,
+  opponent_short_display_name=&quot;Notre Dame&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 54.97928, 
+  opponent_rolling_true_shooting_percentage = 62.00891, 
+  team_rolling_turnover_percentage = 0.1912652,
+  opponent_rolling_turnover_percentage = 0.14427709,
+  team_rolling_free_throw_factor = 0.2573506,
+  opponent_rolling_free_throw_factor = 0.2383262,
+  team_rolling_orb = 0.3021967,
+  opponent_rolling_orb = 0.2934786,
+  team_rolling_drb = 0.7132806,
+  opponent_rolling_drb = 0.7039603,
+  team_rolling_d_eff = 107.78543,
+  opponent_rolling_d_eff = 98.35220,
+  team_rolling_off_ef = 103.65390,
+  opponent_rolling_off_ef = 114.88958
+  ) %&gt;% add_row(
+  game_id = 6,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Texas Tech&quot;,
+  opponent_short_display_name=&quot;Montana State&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 56.37487, 
+  opponent_rolling_true_shooting_percentage = 60.76447, 
+  team_rolling_turnover_percentage = 0.1997995,
+  opponent_rolling_turnover_percentage = 0.1625141,
+  team_rolling_free_throw_factor = 0.2570650,
+  opponent_rolling_free_throw_factor = 0.3538671,
+  team_rolling_orb = 0.2545297,
+  opponent_rolling_orb = 0.2793220,
+  team_rolling_drb = 0.7044672,
+  opponent_rolling_drb = 0.7346276,
+  team_rolling_d_eff = 88.47415,
+  opponent_rolling_d_eff = 102.11840,
+  team_rolling_off_ef = 100.37583,
+  opponent_rolling_off_ef = 111.23944
+  ) %&gt;% add_row(
+  game_id = 7,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Michigan State&quot;,
+  opponent_short_display_name=&quot;Davidson&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 53.33916, 
+  opponent_rolling_true_shooting_percentage = 57.45581, 
+  team_rolling_turnover_percentage = 0.1419211,
+  opponent_rolling_turnover_percentage = 0.1187778,
+  team_rolling_free_throw_factor = 0.1696124,
+  opponent_rolling_free_throw_factor = 0.2446766,
+  team_rolling_orb = 0.2754427,
+  opponent_rolling_orb = 0.2360278,
+  team_rolling_drb = 0.7245573,
+  opponent_rolling_drb = 0.7598127,
+  team_rolling_d_eff = 107.10335,
+  opponent_rolling_d_eff = 94.93988,
+  team_rolling_off_ef = 103.41007,
+  opponent_rolling_off_ef = 110.77808
+  ) %&gt;% add_row(
+  game_id = 8,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Duke&quot;,
+  opponent_short_display_name=&quot;CSU Fullerton&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 60.06261, 
+  opponent_rolling_true_shooting_percentage = 56.03563, 
+  team_rolling_turnover_percentage = 0.1224523,
+  opponent_rolling_turnover_percentage = 0.1554334,
+  team_rolling_free_throw_factor = 0.2172647,
+  opponent_rolling_free_throw_factor = 0.2399545,
+  team_rolling_orb = 0.2894726,
+  opponent_rolling_orb = 0.2887004,
+  team_rolling_drb = 0.6941568,
+  opponent_rolling_drb = 0.7112996,
+  team_rolling_d_eff = 105.94080,
+  opponent_rolling_d_eff = 99.53855,
+  team_rolling_off_ef = 121.7747,
+  opponent_rolling_off_ef = 105.03388
+  )
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 8 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.716   0.284 W                 1 2022-03-16 &quot;Gonzaga&quot;              
+## 2   0.496   0.504 L                 2 2022-03-16 &quot;Boise State&quot;          
+## 3   0.438   0.562 L                 3 2022-03-16 &quot;UConn&quot;                
+## 4   0.122   0.878 L                 4 2022-03-16 &quot;Arkansas&quot;             
+## 5   0.174   0.826 L                 5 2022-03-16 &quot; Alabama&quot;             
+## 6   0.260   0.740 L                 6 2022-03-16 &quot;Texas Tech&quot;           
+## 7   0.191   0.809 L                 7 2022-03-16 &quot;Michigan State&quot;       
+## 8   0.779   0.221 W                 8 2022-03-16 &quot;Duke&quot;                 
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#West_Region
+
+#Round_of_32
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Gonzaga&quot;,
+  opponent_short_display_name=&quot;Boise State&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 60.39169, 
+  opponent_rolling_true_shooting_percentage = 60.14856, 
+  team_rolling_turnover_percentage = 0.1403807,
+  opponent_rolling_turnover_percentage = 0.1611688,
+  team_rolling_free_throw_factor = 0.1992893,
+  opponent_rolling_free_throw_factor = 0.2699789,
+  team_rolling_orb = 0.2546847,
+  opponent_rolling_orb = 0.2487945,
+  team_rolling_drb = 0.7446604,
+  opponent_rolling_drb = 0.7054032,
+  team_rolling_d_eff = 87.29183,
+  opponent_rolling_d_eff = 101.35968,
+  team_rolling_off_ef = 113.7181,
+  opponent_rolling_off_ef = 112.20614
+  ) %&gt;% add_row(  
+  game_id = 2,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;New Mexico St&quot;,
+  opponent_short_display_name=&quot;Vermont&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 55.00620, 
+  opponent_rolling_true_shooting_percentage = 59.50318, 
+  team_rolling_turnover_percentage = 0.1767494,
+  opponent_rolling_turnover_percentage = 0.1242110,
+  team_rolling_free_throw_factor = 0.22174217,
+  opponent_rolling_free_throw_factor = 0.1960718,
+  team_rolling_orb = 0.2546139,
+  opponent_rolling_orb = 0.3010383,
+  team_rolling_drb = 0.7693156,
+  opponent_rolling_drb = 0.7175983,
+  team_rolling_d_eff = 95.34678,
+  opponent_rolling_d_eff = 86.38173,
+  team_rolling_off_ef = 105.62307,
+  opponent_rolling_off_ef = 116.95492
+  ) %&gt;% add_row(
+  game_id = 3,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Notre Dame&quot;,
+  opponent_short_display_name=&quot;Montana State&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 62.00891, 
+  opponent_rolling_true_shooting_percentage = 60.76447, 
+  team_rolling_turnover_percentage = 0.14427709,
+  opponent_rolling_turnover_percentage = 0.1625141,
+  team_rolling_free_throw_factor = 0.2383262,
+  opponent_rolling_free_throw_factor = 0.3538671,
+  team_rolling_orb = 0.2934786,
+  opponent_rolling_orb = 0.2793220,
+  team_rolling_drb = 0.7039603,
+  opponent_rolling_drb = 0.7346276,
+  team_rolling_d_eff = 98.35220,
+  opponent_rolling_d_eff = 102.11840,
+  team_rolling_off_ef = 114.88958,
+  opponent_rolling_off_ef = 111.23944
+  ) %&gt;% add_row(
+  game_id = 4,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Davidson&quot;,
+  opponent_short_display_name=&quot;Duke&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 57.45581, 
+  opponent_rolling_true_shooting_percentage = 60.06261, 
+  team_rolling_turnover_percentage = 0.1187778,
+  opponent_rolling_turnover_percentage = 0.1224523,
+  team_rolling_free_throw_factor = 0.2446766,
+  opponent_rolling_free_throw_factor = 0.2172647,
+  team_rolling_orb = 0.2360278,
+  opponent_rolling_orb = 0.2894726,
+  team_rolling_drb = 0.7598127,
+  opponent_rolling_drb = 0.6941568,
+  team_rolling_d_eff = 94.93988,
+  opponent_rolling_d_eff = 105.94080,
+  team_rolling_off_ef = 110.77808,
+  opponent_rolling_off_ef = 121.7747
+  ) 
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 4 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.738   0.262 W                 1 2022-03-16 Gonzaga                
+## 2   0.155   0.845 L                 2 2022-03-16 New Mexico St          
+## 3   0.573   0.427 W                 3 2022-03-16 Notre Dame             
+## 4   0.360   0.640 L                 4 2022-03-16 Davidson               
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#West_Region
+
+#Sweet_16
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Gonzaga&quot;,
+  opponent_short_display_name=&quot;Vermont&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 60.39169, 
+  opponent_rolling_true_shooting_percentage = 59.50318, 
+  team_rolling_turnover_percentage = 0.1403807,
+  opponent_rolling_turnover_percentage = 0.1242110,
+  team_rolling_free_throw_factor = 0.1992893,
+  opponent_rolling_free_throw_factor = 0.1960718,
+  team_rolling_orb = 0.2546847,
+  opponent_rolling_orb = 0.3010383,
+  team_rolling_drb = 0.7446604,
+  opponent_rolling_drb = 0.7175983,
+  team_rolling_d_eff = 87.29183,
+  opponent_rolling_d_eff = 86.38173,
+  team_rolling_off_ef = 113.7181,
+  opponent_rolling_off_ef = 116.95492
+  ) %&gt;% add_row(
+  game_id = 2,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Notre Dame&quot;,
+  opponent_short_display_name=&quot;Duke&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 62.00891, 
+  opponent_rolling_true_shooting_percentage = 60.06261, 
+  team_rolling_turnover_percentage = 0.14427709,
+  opponent_rolling_turnover_percentage = 0.1224523,
+  team_rolling_free_throw_factor = 0.2383262,
+  opponent_rolling_free_throw_factor = 0.2172647,
+  team_rolling_orb = 0.2934786,
+  opponent_rolling_orb = 0.2894726,
+  team_rolling_drb = 0.7039603,
+  opponent_rolling_drb = 0.6941568,
+  team_rolling_d_eff = 98.35220,
+  opponent_rolling_d_eff = 105.94080,
+  team_rolling_off_ef = 114.88958,
+  opponent_rolling_off_ef = 121.7747
+  )
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 2 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.355   0.645 L                 1 2022-03-16 Gonzaga                
+## 2   0.465   0.535 L                 2 2022-03-16 Notre Dame             
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#West_Region
+
+#Elite_8
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Vermont&quot;,
+  opponent_short_display_name=&quot;Duke&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 59.50318, 
+  opponent_rolling_true_shooting_percentage = 60.06261, 
+  team_rolling_turnover_percentage = 0.1242110,
+  opponent_rolling_turnover_percentage = 0.1224523,
+  team_rolling_free_throw_factor = 0.1960718,
+  opponent_rolling_free_throw_factor = 0.2172647,
+  team_rolling_orb = 0.3010383,
+  opponent_rolling_orb = 0.2894726,
+  team_rolling_drb = 0.7175983,
+  opponent_rolling_drb = 0.6941568,
+  team_rolling_d_eff = 86.38173,
+  opponent_rolling_d_eff = 105.94080,
+  team_rolling_off_ef = 116.95492,
+  opponent_rolling_off_ef = 121.7747
+  )
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 1 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.663   0.337 W                 1 2022-03-16 Vermont                
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#East_Region
+
+#Round_of_64
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Baylor&quot;,
+  opponent_short_display_name=&quot;Norfolk State&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 52.80032, 
+  opponent_rolling_true_shooting_percentage = 58.48531, 
+  team_rolling_turnover_percentage = 0.1398363,
+  opponent_rolling_turnover_percentage = 0.1832055,
+  team_rolling_free_throw_factor = 0.2649835,
+  opponent_rolling_free_throw_factor = 0.2708920,
+  team_rolling_orb = 0.2467564,
+  opponent_rolling_orb = 0.2435917,
+  team_rolling_drb = 0.7618376,
+  opponent_rolling_drb = 0.7575060,
+  team_rolling_d_eff = 100.12596,
+  opponent_rolling_d_eff = 92.62078,
+  team_rolling_off_ef = 105.61066,
+  opponent_rolling_off_ef = 108.73089
+  ) %&gt;% add_row(
+  game_id = 2,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;North Carolina&quot;,
+  opponent_short_display_name=&quot;Marquette&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 56.39510, 
+  opponent_rolling_true_shooting_percentage = 56.48811, 
+  team_rolling_turnover_percentage = 0.1497936,
+  opponent_rolling_turnover_percentage = 0.1484420,
+  team_rolling_free_throw_factor = 0.2210747,
+  opponent_rolling_free_throw_factor = 0.2060751,
+  team_rolling_orb = 0.3013856,
+  opponent_rolling_orb = 0.2526919,
+  team_rolling_drb = 0.7120172,
+  opponent_rolling_drb = 0.7473081,
+  team_rolling_d_eff = 100.84088,
+  opponent_rolling_d_eff = 103.20433,
+  team_rolling_off_ef = 109.16107,
+  opponent_rolling_off_ef = 104.88185
+  ) %&gt;% add_row(  
+  game_id = 3,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Saint Mary&#39;s&quot;,
+  opponent_short_display_name=&quot;Indiana&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 56.41885, 
+  opponent_rolling_true_shooting_percentage = 54.48930, 
+  team_rolling_turnover_percentage = 0.1422543,
+  opponent_rolling_turnover_percentage = 0.1315091,
+  team_rolling_free_throw_factor = 0.1891395,
+  opponent_rolling_free_throw_factor = 0.2237929,
+  team_rolling_orb = 0.2538244,
+  opponent_rolling_orb = 0.2662478,
+  team_rolling_drb = 0.7461756,
+  opponent_rolling_drb = 0.7337522,
+  team_rolling_d_eff = 94.07037,
+  opponent_rolling_d_eff = 105.60228,
+  team_rolling_off_ef = 105.65605,
+  opponent_rolling_off_ef = 105.61921
+  ) %&gt;% add_row(
+  game_id = 4,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;UCLA&quot;,
+  opponent_short_display_name=&quot;Akron&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 56.53337, 
+  opponent_rolling_true_shooting_percentage = 58.44182, 
+  team_rolling_turnover_percentage = 0.1177625,
+  opponent_rolling_turnover_percentage = 0.1454747,
+  team_rolling_free_throw_factor = 0.2432850,
+  opponent_rolling_free_throw_factor = 0.3110479,
+  team_rolling_orb = 0.3114454,
+  opponent_rolling_orb = 0.2989646,
+  team_rolling_drb = 0.6885546,
+  opponent_rolling_drb = 0.7010354,
+  team_rolling_d_eff = 92.47475,
+  opponent_rolling_d_eff = 99.98904,
+  team_rolling_off_ef = 115.31805,
+  opponent_rolling_off_ef = 111.40595
+  ) %&gt;% add_row(
+  game_id = 5,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Texas&quot;,
+  opponent_short_display_name=&quot;Virginia Tech&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 51.69998, 
+  opponent_rolling_true_shooting_percentage = 56.52163, 
+  team_rolling_turnover_percentage = 0.1452556,
+  opponent_rolling_turnover_percentage = 0.1420206,
+  team_rolling_free_throw_factor = 0.2687898,
+  opponent_rolling_free_throw_factor = 0.1975750,
+  team_rolling_orb = 0.2241310,
+  opponent_rolling_orb = 0.3066154,
+  team_rolling_drb = 0.7632143,
+  opponent_rolling_drb = 0.6933846,
+  team_rolling_d_eff = 103.69471,
+  opponent_rolling_d_eff = 96.91353,
+  team_rolling_off_ef = 101.76825,
+  opponent_rolling_off_ef = 109.38537
+  ) %&gt;% add_row(
+  game_id = 6,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Purdue&quot;,
+  opponent_short_display_name=&quot;Yale&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 55.34574, 
+  opponent_rolling_true_shooting_percentage = 55.67012, 
+  team_rolling_turnover_percentage = 0.1673786,
+  opponent_rolling_turnover_percentage = 0.1704524,
+  team_rolling_free_throw_factor = 0.2552723,
+  opponent_rolling_free_throw_factor = 0.2325196,
+  team_rolling_orb = 0.2557360,
+  opponent_rolling_orb = 0.2373917,
+  team_rolling_drb = 0.7730155,
+  opponent_rolling_drb = 0.7626083,
+  team_rolling_d_eff = 106.03004,
+  opponent_rolling_d_eff = 95.38413,
+  team_rolling_off_ef = 105.56307,
+  opponent_rolling_off_ef = 102.51132
+  ) %&gt;% add_row(
+  game_id = 7,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Murray State&quot;,
+  opponent_short_display_name=&quot;San Francisco&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 56.01059, 
+  opponent_rolling_true_shooting_percentage = 55.56788, 
+  team_rolling_turnover_percentage = 0.1346666,
+  opponent_rolling_turnover_percentage = 0.1378799,
+  team_rolling_free_throw_factor = 0.2276501,
+  opponent_rolling_free_throw_factor = 0.2202212,
+  team_rolling_orb = 0.2814836,
+  opponent_rolling_orb = 0.2855712,
+  team_rolling_drb = 0.7630346,
+  opponent_rolling_drb = 0.7144288,
+  team_rolling_d_eff = 91.45116,
+  opponent_rolling_d_eff = 93.68063,
+  team_rolling_off_ef = 112.54410,
+  opponent_rolling_off_ef = 108.52285
+  ) %&gt;% add_row(
+  game_id = 8,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Kentucky&quot;,
+  opponent_short_display_name=&quot;Saint Peter&#39;s&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 56.26150, 
+  opponent_rolling_true_shooting_percentage = 52.23411, 
+  team_rolling_turnover_percentage = 0.1383775,
+  opponent_rolling_turnover_percentage = 0.1739299,
+  team_rolling_free_throw_factor = 0.2113611,
+  opponent_rolling_free_throw_factor = 0.2339811,
+  team_rolling_orb = 0.3255357,
+  opponent_rolling_orb = 0.2655262,
+  team_rolling_drb = 0.6935517,
+  opponent_rolling_drb = 0.7281246,
+  team_rolling_d_eff = 102.38783,
+  opponent_rolling_d_eff = 88.41906,
+  team_rolling_off_ef = 114.27361,
+  opponent_rolling_off_ef = 99.90312
+  )
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 8 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.323   0.677 L                 1 2022-03-16 Baylor                 
+## 2   0.670   0.330 W                 2 2022-03-16 North Carolina         
+## 3   0.622   0.378 W                 3 2022-03-16 Saint Mary&#39;s           
+## 4   0.650   0.350 W                 4 2022-03-16 UCLA                   
+## 5   0.211   0.789 L                 5 2022-03-16 Texas                  
+## 6   0.501   0.499 W                 6 2022-03-16 Purdue                 
+## 7   0.683   0.317 W                 7 2022-03-16 Murray State           
+## 8   0.739   0.261 W                 8 2022-03-16 Kentucky               
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#East
+
+#Round_of_32
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;North Carlonia&quot;,
+  opponent_short_display_name=&quot;Norfolk State&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 58.48531, 
+  opponent_rolling_true_shooting_percentage = 56.39510, 
+  team_rolling_turnover_percentage = 0.1832055,
+  opponent_rolling_turnover_percentage = 0.1497936,
+  team_rolling_free_throw_factor = 0.2708920,
+  opponent_rolling_free_throw_factor = 0.2210747,
+  team_rolling_orb = 0.2435917,
+  opponent_rolling_orb = 0.3013856,
+  team_rolling_drb = 0.7575060,
+  opponent_rolling_drb = 0.7120172,
+  team_rolling_d_eff = 92.62078,
+  opponent_rolling_d_eff = 100.84088,
+  team_rolling_off_ef = 108.73089,
+  opponent_rolling_off_ef = 109.16107
+  ) %&gt;% add_row(  
+  game_id = 2,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Saint Mary&#39;s&quot;,
+  opponent_short_display_name=&quot;UCLA&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 56.41885, 
+  opponent_rolling_true_shooting_percentage = 56.53337, 
+  team_rolling_turnover_percentage = 0.1422543,
+  opponent_rolling_turnover_percentage = 0.1177625,
+  team_rolling_free_throw_factor = 0.1891395,
+  opponent_rolling_free_throw_factor = 0.2432850,
+  team_rolling_orb = 0.2538244,
+  opponent_rolling_orb = 0.3114454,
+  team_rolling_drb = 0.7461756,
+  opponent_rolling_drb = 0.6885546,
+  team_rolling_d_eff = 94.07037,
+  opponent_rolling_d_eff = 92.47475,
+  team_rolling_off_ef = 105.65605,
+  opponent_rolling_off_ef = 115.31805
+  ) %&gt;% add_row(
+  game_id = 3,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Virginia Tech&quot;,
+  opponent_short_display_name=&quot;Purdue&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 56.52163, 
+  opponent_rolling_true_shooting_percentage = 55.34574, 
+  team_rolling_turnover_percentage = 0.1420206,
+  opponent_rolling_turnover_percentage = 0.1673786,
+  team_rolling_free_throw_factor = 0.1975750,
+  opponent_rolling_free_throw_factor = 0.2552723,
+  team_rolling_orb = 0.3066154,
+  opponent_rolling_orb = 0.2557360,
+  team_rolling_drb = 0.6933846,
+  opponent_rolling_drb = 0.7730155,
+  team_rolling_d_eff = 96.91353,
+  opponent_rolling_d_eff = 106.03004,
+  team_rolling_off_ef = 109.38537,
+  opponent_rolling_off_ef = 105.56307
+  ) %&gt;% add_row(
+  game_id = 4,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Murray State&quot;,
+  opponent_short_display_name=&quot;Kentucky&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 56.01059, 
+  opponent_rolling_true_shooting_percentage = 56.26150, 
+  team_rolling_turnover_percentage = 0.1346666,
+  opponent_rolling_turnover_percentage = 0.1383775,
+  team_rolling_free_throw_factor = 0.2276501,
+  opponent_rolling_free_throw_factor = 0.2113611,
+  team_rolling_orb = 0.2814836,
+  opponent_rolling_orb = 0.3255357,
+  team_rolling_drb = 0.7630346,
+  opponent_rolling_drb = 0.6935517,
+  team_rolling_d_eff = 91.45116,
+  opponent_rolling_d_eff = 102.38783,
+  team_rolling_off_ef = 112.54410,
+  opponent_rolling_off_ef = 114.27361
+  ) 
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 4 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.566   0.434 W                 1 2022-03-16 North Carlonia         
+## 2   0.224   0.776 L                 2 2022-03-16 Saint Mary&#39;s           
+## 3   0.658   0.342 W                 3 2022-03-16 Virginia Tech          
+## 4   0.609   0.391 W                 4 2022-03-16 Murray State           
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#East
+
+#Sweet_16
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;North Carlonia&quot;,
+  opponent_short_display_name=&quot;UCLA&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 58.48531, 
+  opponent_rolling_true_shooting_percentage = 56.53337, 
+  team_rolling_turnover_percentage = 0.1832055,
+  opponent_rolling_turnover_percentage = 0.1177625,
+  team_rolling_free_throw_factor = 0.2708920,
+  opponent_rolling_free_throw_factor = 0.2432850,
+  team_rolling_orb = 0.2435917,
+  opponent_rolling_orb = 0.3114454,
+  team_rolling_drb = 0.7575060,
+  opponent_rolling_drb = 0.6885546,
+  team_rolling_d_eff = 92.62078,
+  opponent_rolling_d_eff = 92.47475,
+  team_rolling_off_ef = 108.73089,
+  opponent_rolling_off_ef = 115.31805
+  ) %&gt;% add_row(
+  game_id = 2,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Virginia Tech&quot;,
+  opponent_short_display_name=&quot;Murray State&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 56.52163, 
+  opponent_rolling_true_shooting_percentage = 56.01059, 
+  team_rolling_turnover_percentage = 0.1420206,
+  opponent_rolling_turnover_percentage = 0.1346666,
+  team_rolling_free_throw_factor = 0.1975750,
+  opponent_rolling_free_throw_factor = 0.2276501,
+  team_rolling_orb = 0.3066154,
+  opponent_rolling_orb = 0.2814836,
+  team_rolling_drb = 0.6933846,
+  opponent_rolling_drb = 0.7630346,
+  team_rolling_d_eff = 96.91353,
+  opponent_rolling_d_eff = 91.45116,
+  team_rolling_off_ef = 109.38537,
+  opponent_rolling_off_ef = 112.54410
+  )
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 2 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.327   0.673 L                 1 2022-03-16 North Carlonia         
+## 2   0.292   0.708 L                 2 2022-03-16 Virginia Tech          
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#East
+
+#Elite_8
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;UCLA&quot;,
+  opponent_short_display_name=&quot;Murray State&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 56.53337, 
+  opponent_rolling_true_shooting_percentage = 56.01059, 
+  team_rolling_turnover_percentage = 0.1177625,
+  opponent_rolling_turnover_percentage = 0.1346666,
+  team_rolling_free_throw_factor = 0.2432850,
+  opponent_rolling_free_throw_factor = 0.2276501,
+  team_rolling_orb = 0.3114454,
+  opponent_rolling_orb = 0.2814836,
+  team_rolling_drb = 0.6885546,
+  opponent_rolling_drb = 0.7630346,
+  team_rolling_d_eff = 92.47475,
+  opponent_rolling_d_eff = 91.45116,
+  team_rolling_off_ef = 115.31805,
+  opponent_rolling_off_ef = 112.54410
+  ) 
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 1 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.498   0.502 L                 1 2022-03-16 UCLA                   
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#South
+
+#Round of 64
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Arizona&quot;,
+  opponent_short_display_name=&quot;Wright State&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 62.88430, 
+  opponent_rolling_true_shooting_percentage = 55.46429, 
+  team_rolling_turnover_percentage = 0.1516698,
+  opponent_rolling_turnover_percentage = 0.1373984,
+  team_rolling_free_throw_factor = 0.3102853,
+  opponent_rolling_free_throw_factor = 0.2382874,
+  team_rolling_orb = 0.3160301,
+  opponent_rolling_orb = 0.2809995,
+  team_rolling_drb = 0.7099832,
+  opponent_rolling_drb = 0.7190005,
+  team_rolling_d_eff = 102.33542,
+  opponent_rolling_d_eff = 103.23397,
+  team_rolling_off_ef = 118.66381,
+  opponent_rolling_off_ef = 111.90669
+  ) %&gt;% add_row(
+  game_id = 2,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Seton Hall&quot;,
+  opponent_short_display_name=&quot;TCU&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 50.89996, 
+  opponent_rolling_true_shooting_percentage = 52.91334, 
+  team_rolling_turnover_percentage = 0.1441306,
+  opponent_rolling_turnover_percentage = 0.1859350,
+  team_rolling_free_throw_factor = 0.1602098,
+  opponent_rolling_free_throw_factor = 0.2144778,
+  team_rolling_orb = 0.3071660,
+  opponent_rolling_orb = 0.2820034,
+  team_rolling_drb = 0.6928340,
+  opponent_rolling_drb = 0.7179966,
+  team_rolling_d_eff = 98.60937,
+  opponent_rolling_d_eff = 102.78470,
+  team_rolling_off_ef = 102.41545,
+  opponent_rolling_off_ef = 99.70386
+  ) %&gt;% add_row(  
+  game_id = 3,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Houston&quot;,
+  opponent_short_display_name=&quot;UAB&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 55.85090, 
+  opponent_rolling_true_shooting_percentage = 58.11385, 
+  team_rolling_turnover_percentage = 0.1457898,
+  opponent_rolling_turnover_percentage = 0.1592188,
+  team_rolling_free_throw_factor = 0.21506126,
+  opponent_rolling_free_throw_factor = 0.2625223,
+  team_rolling_orb = 0.3171913,
+  opponent_rolling_orb = 0.3133764,
+  team_rolling_drb = 0.6654635,
+  opponent_rolling_drb = 0.6799167,
+  team_rolling_d_eff = 94.14685,
+  opponent_rolling_d_eff = 98.42883,
+  team_rolling_off_ef = 114.12274,
+  opponent_rolling_off_ef = 112.01291
+  ) %&gt;% add_row(
+  game_id = 4,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Illinois&quot;,
+  opponent_short_display_name=&quot;Chattanooga&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 54.86962, 
+  opponent_rolling_true_shooting_percentage = 55.12358, 
+  team_rolling_turnover_percentage = 0.1345938,
+  opponent_rolling_turnover_percentage = 0.1442369,
+  team_rolling_free_throw_factor = 0.2462807,
+  opponent_rolling_free_throw_factor = 0.2010966,
+  team_rolling_orb = 0.2780706,
+  opponent_rolling_orb = 0.2867128,
+  team_rolling_drb = 0.7566913,
+  opponent_rolling_drb = 0.7298432,
+  team_rolling_d_eff = 104.02678,
+  opponent_rolling_d_eff = 98.15701,
+  team_rolling_off_ef = 107.37721,
+  opponent_rolling_off_ef = 106.74502
+  ) %&gt;% add_row(
+  game_id = 5,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Colorado State&quot;,
+  opponent_short_display_name=&quot;Michigan&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 56.53809, 
+  opponent_rolling_true_shooting_percentage = 55.87396, 
+  team_rolling_turnover_percentage = 0.1326516,
+  opponent_rolling_turnover_percentage = 0.1373154,
+  team_rolling_free_throw_factor = 0.2084538,
+  opponent_rolling_free_throw_factor = 0.2019234,
+  team_rolling_orb = 0.2788082,
+  opponent_rolling_orb = 0.2747588,
+  team_rolling_drb = 0.7369248,
+  opponent_rolling_drb = 0.7107661,
+  team_rolling_d_eff = 97.29922,
+  opponent_rolling_d_eff = 106.35134,
+  team_rolling_off_ef = 106.82178,
+  opponent_rolling_off_ef = 109.93419
+  ) %&gt;% add_row(
+  game_id = 6,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Tennessee&quot;,
+  opponent_short_display_name=&quot;Longwood&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 52.94304, 
+  opponent_rolling_true_shooting_percentage = 57.78325, 
+  team_rolling_turnover_percentage = 0.1508869,
+  opponent_rolling_turnover_percentage = 0.1552393,
+  team_rolling_free_throw_factor = 0.2730825,
+  opponent_rolling_free_throw_factor = 0.2948054,
+  team_rolling_orb = 0.3039605,
+  opponent_rolling_orb = 0.2539755,
+  team_rolling_drb = 0.6865579,
+  opponent_rolling_drb = 0.7581790,
+  team_rolling_d_eff = 93.01982,
+  opponent_rolling_d_eff = 100.65886,
+  team_rolling_off_ef = 103.65727,
+  opponent_rolling_off_ef = 112.16822
+  ) %&gt;% add_row(
+  game_id = 7,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Ohio State&quot;,
+  opponent_short_display_name=&quot;Loyola Chicago&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 58.12333, 
+  opponent_rolling_true_shooting_percentage = 59.20402, 
+  team_rolling_turnover_percentage = 0.1458455,
+  opponent_rolling_turnover_percentage = 0.1793430,
+  team_rolling_free_throw_factor = 0.2915038,
+  opponent_rolling_free_throw_factor = 0.2372915,
+  team_rolling_orb = 0.2709186,
+  opponent_rolling_orb = 0.3189037,
+  team_rolling_drb = 0.7115476,
+  opponent_rolling_drb = 0.6810963,
+  team_rolling_d_eff = 107.57245,
+  opponent_rolling_d_eff = 92.77466,
+  team_rolling_off_ef = 109.70780,
+  opponent_rolling_off_ef = 108.31315
+  ) %&gt;% add_row(
+  game_id = 8,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Villanova&quot;,
+  opponent_short_display_name=&quot;Delaware&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 58.00925, 
+  opponent_rolling_true_shooting_percentage = 55.42648, 
+  team_rolling_turnover_percentage = 0.1544974,
+  opponent_rolling_turnover_percentage = 0.1585516,
+  team_rolling_free_throw_factor = 0.2962094,
+  opponent_rolling_free_throw_factor = 0.3040907,
+  team_rolling_orb = 0.2699853,
+  opponent_rolling_orb = 0.2495207,
+  team_rolling_drb = 0.7423122,
+  opponent_rolling_drb = 0.7504793,
+  team_rolling_d_eff = 105.25776,
+  opponent_rolling_d_eff = 100.97301,
+  team_rolling_off_ef = 111.4204,
+  opponent_rolling_off_ef = 103.34918
+  )
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 8 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.766   0.234 W                 1 2022-03-16 Arizona                
+## 2   0.599   0.401 W                 2 2022-03-16 Seton Hall             
+## 3   0.561   0.439 W                 3 2022-03-16 Houston                
+## 4   0.477   0.523 L                 4 2022-03-16 Illinois               
+## 5   0.586   0.414 W                 5 2022-03-16 Colorado State         
+## 6   0.346   0.654 L                 6 2022-03-16 Tennessee              
+## 7   0.325   0.675 L                 7 2022-03-16 Ohio State             
+## 8   0.673   0.327 W                 8 2022-03-16 Villanova              
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#South
+
+#Round of 32
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Arizona&quot;,
+  opponent_short_display_name=&quot;Seton Hall&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 62.88430, 
+  opponent_rolling_true_shooting_percentage = 50.89996, 
+  team_rolling_turnover_percentage = 0.1516698,
+  opponent_rolling_turnover_percentage = 0.1441306,
+  team_rolling_free_throw_factor = 0.3102853,
+  opponent_rolling_free_throw_factor = 0.1602098,
+  team_rolling_orb = 0.3160301,
+  opponent_rolling_orb = 0.3071660,
+  team_rolling_drb = 0.7099832,
+  opponent_rolling_drb = 0.6928340,
+  team_rolling_d_eff = 102.33542,
+  opponent_rolling_d_eff = 98.60937,
+  team_rolling_off_ef = 118.66381,
+  opponent_rolling_off_ef = 102.41545
+  ) %&gt;% add_row(  
+  game_id = 2,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Houston&quot;,
+  opponent_short_display_name=&quot;Chattanooga&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 55.85090, 
+  opponent_rolling_true_shooting_percentage = 55.12358, 
+  team_rolling_turnover_percentage = 0.1457898,
+  opponent_rolling_turnover_percentage = 0.1442369,
+  team_rolling_free_throw_factor = 0.21506126,
+  opponent_rolling_free_throw_factor = 0.2010966,
+  team_rolling_orb = 0.3171913,
+  opponent_rolling_orb = 0.2867128,
+  team_rolling_drb = 0.6654635,
+  opponent_rolling_drb = 0.7298432,
+  team_rolling_d_eff = 94.14685,
+  opponent_rolling_d_eff = 98.15701,
+  team_rolling_off_ef = 114.12274,
+  opponent_rolling_off_ef = 106.74502
+  )%&gt;% add_row(
+  game_id = 3,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Colorado State&quot;,
+  opponent_short_display_name=&quot;Longwood&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 56.53809, 
+  opponent_rolling_true_shooting_percentage = 57.78325, 
+  team_rolling_turnover_percentage = 0.1326516,
+  opponent_rolling_turnover_percentage = 0.1552393,
+  team_rolling_free_throw_factor = 0.2084538,
+  opponent_rolling_free_throw_factor = 0.2948054,
+  team_rolling_orb = 0.2788082,
+  opponent_rolling_orb = 0.2539755,
+  team_rolling_drb = 0.7369248,
+  opponent_rolling_drb = 0.7581790,
+  team_rolling_d_eff = 97.29922,
+  opponent_rolling_d_eff = 100.65886,
+  team_rolling_off_ef = 106.82178,
+  opponent_rolling_off_ef = 112.16822
+  ) %&gt;% add_row(
+  game_id = 4,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Loyola Chicago&quot;,
+  opponent_short_display_name=&quot;Villanova&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 59.20402, 
+  opponent_rolling_true_shooting_percentage = 58.00925, 
+  team_rolling_turnover_percentage = 0.1793430,
+  opponent_rolling_turnover_percentage = 0.1544974,
+  team_rolling_free_throw_factor = 0.2372915,
+  opponent_rolling_free_throw_factor = 0.2962094,
+  team_rolling_orb = 0.3189037,
+  opponent_rolling_orb = 0.2699853,
+  team_rolling_drb = 0.6810963,
+  opponent_rolling_drb = 0.7423122,
+  team_rolling_d_eff = 92.77466,
+  opponent_rolling_d_eff = 100.97301,
+  team_rolling_off_ef = 108.31315,
+  opponent_rolling_off_ef = 111.4204
+  ) 
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 4 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.885   0.115 W                 1 2022-03-16 Arizona                
+## 2   0.684   0.316 W                 2 2022-03-16 Houston                
+## 3   0.388   0.612 L                 3 2022-03-16 Colorado State         
+## 4   0.508   0.492 W                 4 2022-03-16 Loyola Chicago         
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#South
+
+#Sweet 16
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Arizona&quot;,
+  opponent_short_display_name=&quot;Houston&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 62.88430, 
+  opponent_rolling_true_shooting_percentage = 55.85090, 
+  team_rolling_turnover_percentage = 0.1516698,
+  opponent_rolling_turnover_percentage = 0.1457898,
+  team_rolling_free_throw_factor = 0.3102853,
+  opponent_rolling_free_throw_factor = 0.21506126,
+  team_rolling_orb = 0.3160301,
+  opponent_rolling_orb = 0.3171913,
+  team_rolling_drb = 0.7099832,
+  opponent_rolling_drb = 0.6654635,
+  team_rolling_d_eff = 102.33542,
+  opponent_rolling_d_eff = 94.14685,
+  team_rolling_off_ef = 118.66381,
+  opponent_rolling_off_ef = 114.12274
+  ) %&gt;% add_row(
+  game_id = 2,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Longwood&quot;,
+  opponent_short_display_name=&quot;Loyola Chicago&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 57.78325, 
+  opponent_rolling_true_shooting_percentage = 59.20402, 
+  team_rolling_turnover_percentage = 0.1552393,
+  opponent_rolling_turnover_percentage = 0.1793430,
+  team_rolling_free_throw_factor = 0.2948054,
+  opponent_rolling_free_throw_factor = 0.2372915,
+  team_rolling_orb = 0.2539755,
+  opponent_rolling_orb = 0.3189037,
+  team_rolling_drb = 0.7581790,
+  opponent_rolling_drb = 0.6810963,
+  team_rolling_d_eff = 100.65886,
+  opponent_rolling_d_eff = 92.77466,
+  team_rolling_off_ef = 112.16822,
+  opponent_rolling_off_ef = 108.31315
+  ) 
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 2 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.647   0.353 W                 1 2022-03-16 Arizona                
+## 2   0.499   0.501 L                 2 2022-03-16 Longwood               
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#South
+
+#Elite 8
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Arizona&quot;,
+  opponent_short_display_name=&quot;Longwood&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 62.88430, 
+  opponent_rolling_true_shooting_percentage = 57.78325, 
+  team_rolling_turnover_percentage = 0.1516698,
+  opponent_rolling_turnover_percentage = 0.1552393,
+  team_rolling_free_throw_factor = 0.3102853,
+  opponent_rolling_free_throw_factor = 0.2948054,
+  team_rolling_orb = 0.3160301,
+  opponent_rolling_orb = 0.2539755,
+  team_rolling_drb = 0.7099832,
+  opponent_rolling_drb = 0.7581790,
+  team_rolling_d_eff = 102.33542,
+  opponent_rolling_d_eff = 100.65886,
+  team_rolling_off_ef = 118.66381,
+  opponent_rolling_off_ef = 112.16822
+  ) 
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 1 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.706   0.294 W                 1 2022-03-16 Arizona                
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#Midwest
+
+#Round of 64
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Kansas&quot;,
+  opponent_short_display_name=&quot;Texas Southern&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 55.78341, 
+  opponent_rolling_true_shooting_percentage = 54.77689, 
+  team_rolling_turnover_percentage = 0.1359154,
+  opponent_rolling_turnover_percentage = 0.1777932,
+  team_rolling_free_throw_factor = 0.2602262,
+  opponent_rolling_free_throw_factor = 0.2671484,
+  team_rolling_orb = 0.2670684,
+  opponent_rolling_orb = 0.3263412,
+  team_rolling_drb = 0.7026632,
+  opponent_rolling_drb = 0.6983733,
+  team_rolling_d_eff = 101.05566,
+  opponent_rolling_d_eff = 93.50586,
+  team_rolling_off_ef = 109.91417,
+  opponent_rolling_off_ef = 101.76365
+  ) %&gt;% add_row(
+  game_id = 2,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;San Diego State&quot;,
+  opponent_short_display_name=&quot;Creighton&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 57.64911, 
+  opponent_rolling_true_shooting_percentage = 54.67923, 
+  team_rolling_turnover_percentage = 0.1817001,
+  opponent_rolling_turnover_percentage = 0.1687059,
+  team_rolling_free_throw_factor = 0.2510067,
+  opponent_rolling_free_throw_factor = 0.2081516,
+  team_rolling_orb = 0.2791913,
+  opponent_rolling_orb = 0.2680035,
+  team_rolling_drb = 0.7208087,
+  opponent_rolling_drb = 0.7319965,
+  team_rolling_d_eff = 90.38918,
+  opponent_rolling_d_eff = 97.73256,
+  team_rolling_off_ef = 107.10289,
+  opponent_rolling_off_ef = 101.45488
+  ) %&gt;% add_row(  
+  game_id = 3,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Iowa&quot;,
+  opponent_short_display_name=&quot;Richmond&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 59.07660, 
+  opponent_rolling_true_shooting_percentage = 54.76563, 
+  team_rolling_turnover_percentage = 0.1220608,
+  opponent_rolling_turnover_percentage = 0.1336098,
+  team_rolling_free_throw_factor = 0.2338690,
+  opponent_rolling_free_throw_factor = 0.2980705,
+  team_rolling_orb = 0.2544119,
+  opponent_rolling_orb = 0.2283085,
+  team_rolling_drb = 0.7455881,
+  opponent_rolling_drb = 0.7716915,
+  team_rolling_d_eff = 104.71550,
+  opponent_rolling_d_eff = 101.12160,
+  team_rolling_off_ef = 120.64948,
+  opponent_rolling_off_ef = 102.45734
+  ) %&gt;% add_row(
+  game_id = 4,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Providence&quot;,
+  opponent_short_display_name=&quot;South Dakota St&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 55.14751, 
+  opponent_rolling_true_shooting_percentage = 61.10337, 
+  team_rolling_turnover_percentage = 0.1431738,
+  opponent_rolling_turnover_percentage = 0.16856246,
+  team_rolling_free_throw_factor = 0.2732637,
+  opponent_rolling_free_throw_factor = 0.3335129,
+  team_rolling_orb = 0.2666162,
+  opponent_rolling_orb = 0.3091887,
+  team_rolling_drb = 0.7212626,
+  opponent_rolling_drb = 0.7261199,
+  team_rolling_d_eff = 101.82758,
+  opponent_rolling_d_eff = 104.06395,
+  team_rolling_off_ef = 108.27436,
+  opponent_rolling_off_ef = 111.1941
+  ) %&gt;% add_row(
+  game_id = 5,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;LSU&quot;,
+  opponent_short_display_name=&quot;Iowa State&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 55.74670, 
+  opponent_rolling_true_shooting_percentage = 50.47641, 
+  team_rolling_turnover_percentage = 0.1736235,
+  opponent_rolling_turnover_percentage = 0.1842803,
+  team_rolling_free_throw_factor = 0.3038361,
+  opponent_rolling_free_throw_factor = 0.1727019,
+  team_rolling_orb = 0.3098726,
+  opponent_rolling_orb = 0.2215126,
+  team_rolling_drb = 0.6901274,
+  opponent_rolling_drb = 0.7784874,
+  team_rolling_d_eff = 97.64433,
+  opponent_rolling_d_eff = 101.08681,
+  team_rolling_off_ef = 105.37935,
+  opponent_rolling_off_ef = 91.71563
+  ) %&gt;% add_row(
+  game_id = 6,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Wisconsin&quot;,
+  opponent_short_display_name=&quot;Colgate&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 53.10404, 
+  opponent_rolling_true_shooting_percentage = 60.56056, 
+  team_rolling_turnover_percentage = 0.12366629,
+  opponent_rolling_turnover_percentage = 0.1413336,
+  team_rolling_free_throw_factor = 0.2399570,
+  opponent_rolling_free_throw_factor = 0.2397565,
+  team_rolling_orb = 0.2602377,
+  opponent_rolling_orb = 0.3118806,
+  team_rolling_drb = 0.7556648,
+  opponent_rolling_drb = 0.6592468,
+  team_rolling_d_eff = 100.37189,
+  opponent_rolling_d_eff = 94.88410,
+  team_rolling_off_ef = 102.84930,
+  opponent_rolling_off_ef = 115.05061
+  ) %&gt;% add_row(
+  game_id = 7,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;USC&quot;,
+  opponent_short_display_name=&quot;Miami&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 54.48895, 
+  opponent_rolling_true_shooting_percentage = 58.25654, 
+  team_rolling_turnover_percentage = 0.1780638,
+  opponent_rolling_turnover_percentage = 0.1278290,
+  team_rolling_free_throw_factor = 0.2332594,
+  opponent_rolling_free_throw_factor = 0.1704983,
+  team_rolling_orb = 0.2663591,
+  opponent_rolling_orb = 0.2883300,
+  team_rolling_drb = 0.7336409,
+  opponent_rolling_drb = 0.7116700,
+  team_rolling_d_eff = 105.00442,
+  opponent_rolling_d_eff = 104.24466,
+  team_rolling_off_ef = 102.02229,
+  opponent_rolling_off_ef = 112.21766
+  ) %&gt;% add_row(
+  game_id = 8,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Auburn&quot;,
+  opponent_short_display_name=&quot;J&#39;Ville St&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 51.80101, 
+  opponent_rolling_true_shooting_percentage = 57.86030, 
+  team_rolling_turnover_percentage = 0.1611594,
+  opponent_rolling_turnover_percentage = 0.1570093,
+  team_rolling_free_throw_factor = 0.2436116,
+  opponent_rolling_free_throw_factor = 0.1949635,
+  team_rolling_orb = 0.3104397,
+  opponent_rolling_orb = 0.3204096,
+  team_rolling_drb = 0.7086091,
+  opponent_rolling_drb = 0.6659587,
+  team_rolling_d_eff = 94.78565,
+  opponent_rolling_d_eff = 102.62600,
+  team_rolling_off_ef = 100.45285,
+  opponent_rolling_off_ef = 108.6887
+  )
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 8 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.491   0.509 L                 1 2022-03-16 Kansas                 
+## 2   0.738   0.262 W                 2 2022-03-16 San Diego State        
+## 3   0.833   0.167 W                 3 2022-03-16 Iowa                   
+## 4   0.313   0.687 L                 4 2022-03-16 Providence             
+## 5   0.877   0.123 W                 5 2022-03-16 LSU                    
+## 6   0.193   0.807 L                 6 2022-03-16 Wisconsin              
+## 7   0.253   0.747 L                 7 2022-03-16 USC                    
+## 8   0.428   0.572 L                 8 2022-03-16 Auburn                 
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#Midwest
+
+#Round of 32
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Texas Southern&quot;,
+  opponent_short_display_name=&quot;San Diego State&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 54.77689, 
+  opponent_rolling_true_shooting_percentage = 57.64911, 
+  team_rolling_turnover_percentage = 0.1777932,
+  opponent_rolling_turnover_percentage = 0.1817001,
+  team_rolling_free_throw_factor = 0.2671484,
+  opponent_rolling_free_throw_factor = 0.2510067,
+  team_rolling_orb = 0.3263412,
+  opponent_rolling_orb = 0.2791913,
+  team_rolling_drb = 0.6983733,
+  opponent_rolling_drb = 0.7208087,
+  team_rolling_d_eff = 93.50586,
+  opponent_rolling_d_eff = 90.38918,
+  team_rolling_off_ef = 101.76365,
+  opponent_rolling_off_ef = 107.10289
+  ) %&gt;% add_row(  
+  game_id = 2,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Iowa&quot;,
+  opponent_short_display_name=&quot;South Dakota St&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 59.07660, 
+  opponent_rolling_true_shooting_percentage = 61.10337, 
+  team_rolling_turnover_percentage = 0.1220608,
+  opponent_rolling_turnover_percentage = 0.16856246,
+  team_rolling_free_throw_factor = 0.2338690,
+  opponent_rolling_free_throw_factor = 0.3335129,
+  team_rolling_orb = 0.2544119,
+  opponent_rolling_orb = 0.3091887,
+  team_rolling_drb = 0.7455881,
+  opponent_rolling_drb = 0.7261199,
+  team_rolling_d_eff = 104.71550,
+  opponent_rolling_d_eff = 104.06395,
+  team_rolling_off_ef = 120.64948,
+  opponent_rolling_off_ef = 108.27436
+  ) %&gt;% add_row(
+  game_id = 3,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;LSU&quot;,
+  opponent_short_display_name=&quot;Colgate&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 55.74670, 
+  opponent_rolling_true_shooting_percentage = 60.56056, 
+  team_rolling_turnover_percentage = 0.1736235,
+  opponent_rolling_turnover_percentage = 0.1413336,
+  team_rolling_free_throw_factor = 0.3038361,
+  opponent_rolling_free_throw_factor = 0.2397565,
+  team_rolling_orb = 0.3098726,
+  opponent_rolling_orb = 0.3118806,
+  team_rolling_drb = 0.6901274,
+  opponent_rolling_drb = 0.6592468,
+  team_rolling_d_eff = 97.64433,
+  opponent_rolling_d_eff = 94.88410,
+  team_rolling_off_ef = 105.37935,
+  opponent_rolling_off_ef = 115.05061
+  ) %&gt;% add_row(
+  game_id = 4,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Miami&quot;,
+  opponent_short_display_name=&quot;J&#39;Ville St&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 58.25654, 
+  opponent_rolling_true_shooting_percentage = 57.86030, 
+  team_rolling_turnover_percentage = 0.1278290,
+  opponent_rolling_turnover_percentage = 0.1570093,
+  team_rolling_free_throw_factor = 0.1704983,
+  opponent_rolling_free_throw_factor = 0.1949635,
+  team_rolling_orb = 0.2883300,
+  opponent_rolling_orb = 0.3204096,
+  team_rolling_drb = 0.7116700,
+  opponent_rolling_drb = 0.6659587,
+  team_rolling_d_eff = 104.24466,
+  opponent_rolling_d_eff = 102.62600,
+  team_rolling_off_ef = 112.21766,
+  opponent_rolling_off_ef = 108.6887
+  ) 
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 4 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.385   0.615 L                 1 2022-03-16 Texas Southern         
+## 2   0.654   0.346 W                 2 2022-03-16 Iowa                   
+## 3   0.288   0.712 L                 3 2022-03-16 LSU                    
+## 4   0.564   0.436 W                 4 2022-03-16 Miami                  
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#Midwest
+
+#Sweet 16
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;San Diego State&quot;,
+  opponent_short_display_name=&quot;Iowa&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 57.64911, 
+  opponent_rolling_true_shooting_percentage = 59.07660, 
+  team_rolling_turnover_percentage = 0.1817001,
+  opponent_rolling_turnover_percentage = 0.1220608,
+  team_rolling_free_throw_factor = 0.2510067,
+  opponent_rolling_free_throw_factor = 0.2338690,
+  team_rolling_orb = 0.2791913,
+  opponent_rolling_orb = 0.2544119,
+  team_rolling_drb = 0.7208087,
+  opponent_rolling_drb = 0.7455881,
+  team_rolling_d_eff = 90.38918,
+  opponent_rolling_d_eff = 104.71550,
+  team_rolling_off_ef = 107.10289,
+  opponent_rolling_off_ef = 120.64948
+  ) %&gt;% add_row(
+  game_id = 2,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Colgate&quot;,
+  opponent_short_display_name=&quot;Miami&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 60.56056, 
+  opponent_rolling_true_shooting_percentage = 58.25654, 
+  team_rolling_turnover_percentage = 0.1413336,
+  opponent_rolling_turnover_percentage = 0.1278290,
+  team_rolling_free_throw_factor = 0.2397565,
+  opponent_rolling_free_throw_factor = 0.1704983,
+  team_rolling_orb = 0.3118806,
+  opponent_rolling_orb = 0.2883300,
+  team_rolling_drb = 0.6592468,
+  opponent_rolling_drb = 0.7116700,
+  team_rolling_d_eff = 94.88410,
+  opponent_rolling_d_eff = 104.24466,
+  team_rolling_off_ef = 115.05061,
+  opponent_rolling_off_ef = 112.21766
+  ) 
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 2 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.356   0.644 L                 1 2022-03-16 San Diego State        
+## 2   0.673   0.327 W                 2 2022-03-16 Colgate                
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#Midwest
+
+#Elite 8
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Iowa&quot;,
+  opponent_short_display_name=&quot;Colgate&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 59.07660, 
+  opponent_rolling_true_shooting_percentage = 60.56056, 
+  team_rolling_turnover_percentage = 0.1220608,
+  opponent_rolling_turnover_percentage = 0.1413336,
+  team_rolling_free_throw_factor = 0.2338690,
+  opponent_rolling_free_throw_factor = 0.2397565,
+  team_rolling_orb = 0.2544119,
+  opponent_rolling_orb = 0.3118806,
+  team_rolling_drb = 0.7455881,
+  opponent_rolling_drb = 0.6592468,
+  team_rolling_d_eff = 104.71550,
+  opponent_rolling_d_eff = 94.88410,
+  team_rolling_off_ef = 120.64948,
+  opponent_rolling_off_ef = 115.05061
+  ) 
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 1 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.525   0.475 W                 1 2022-03-16 Iowa                   
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#Final Four
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Arizona&quot;,
+  opponent_short_display_name=&quot;Iowa&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 62.88430, 
+  opponent_rolling_true_shooting_percentage = 59.07660, 
+  team_rolling_turnover_percentage = 0.1516698,
+  opponent_rolling_turnover_percentage = 0.1220608,
+  team_rolling_free_throw_factor = 0.3102853,
+  opponent_rolling_free_throw_factor = 0.2338690,
+  team_rolling_orb = 0.3160301,
+  opponent_rolling_orb = 0.2544119,
+  team_rolling_drb = 0.7099832,
+  opponent_rolling_drb = 0.7455881,
+  team_rolling_d_eff = 102.33542,
+  opponent_rolling_d_eff = 104.71550,
+  team_rolling_off_ef = 118.66381,
+  opponent_rolling_off_ef = 120.64948
+  ) %&gt;% add_row(
+  game_id = 2,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Vermont&quot;,
+  opponent_short_display_name=&quot;Murray State&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 59.50318, 
+  opponent_rolling_true_shooting_percentage = 56.01059, 
+  team_rolling_turnover_percentage = 0.1242110,
+  opponent_rolling_turnover_percentage = 0.1346666,
+  team_rolling_free_throw_factor = 0.1960718,
+  opponent_rolling_free_throw_factor = 0.2276501,
+  team_rolling_orb = 0.3010383,
+  opponent_rolling_orb = 0.2814836,
+  team_rolling_drb = 0.7175983,
+  opponent_rolling_drb = 0.7630346,
+  team_rolling_d_eff = 86.38173,
+  opponent_rolling_d_eff = 91.45116,
+  team_rolling_off_ef = 116.95492,
+  opponent_rolling_off_ef = 112.54410
+  )
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 2 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.595   0.405 W                 1 2022-03-16 Arizona                
+## 2   0.629   0.371 W                 2 2022-03-16 Vermont                
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code>#Championship 
+
+win_prediction &lt;- tibble(
+  game_id = 1,
+  game_date = as.Date(&quot;2022-03-16&quot;),
+  team_short_display_name=&quot;Vermont&quot;,
+  opponent_short_display_name=&quot;Arizona&quot;,
+  season = 2022,
+  team_rolling_true_shooting_percentage = 59.50318, 
+  opponent_rolling_true_shooting_percentage = 62.88430, 
+  team_rolling_turnover_percentage = 0.1242110,
+  opponent_rolling_turnover_percentage = 0.1516698,
+  team_rolling_free_throw_factor = 0.1960718,
+  opponent_rolling_free_throw_factor = 0.3102853,
+  team_rolling_orb = 0.3010383,
+  opponent_rolling_orb = 0.3160301,
+  team_rolling_drb = 0.7175983,
+  opponent_rolling_drb = 0.7099832,
+  team_rolling_d_eff = 86.38173,
+  opponent_rolling_d_eff = 102.33542,
+  team_rolling_off_ef = 116.95492,
+  opponent_rolling_off_ef = 118.66381
+  ) 
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = win_prediction) %&gt;%
+  bind_cols(win_prediction)
+
+NCAAlog_predict &lt;- log_rolling_fit %&gt;% predict(new_data = NCAAlog_predict, type=&quot;prob&quot;) %&gt;%
+  bind_cols(NCAAlog_predict)
+
+NCAAlog_predict</code></pre>
+<pre><code>## # A tibble: 1 × 22
+##   .pred_W .pred_L .pred_class game_id game_date  team_short_display_name
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                  
+## 1   0.568   0.432 W                 1 2022-03-16 Vermont                
+## # … with 16 more variables: opponent_short_display_name &lt;chr&gt;, season &lt;dbl&gt;,
+## #   team_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   opponent_rolling_true_shooting_percentage &lt;dbl&gt;,
+## #   team_rolling_turnover_percentage &lt;dbl&gt;,
+## #   opponent_rolling_turnover_percentage &lt;dbl&gt;,
+## #   team_rolling_free_throw_factor &lt;dbl&gt;,
+## #   opponent_rolling_free_throw_factor &lt;dbl&gt;, team_rolling_orb &lt;dbl&gt;, …</code></pre>
+<p>There you have it. Vermont team of destiny.</p>
+<p>I will hand it to them that they did at-least give Arkansas a run IN THE FIRST ROUND.</p>
+<p>Obviously that was terrible. But why?</p>
+<p>Where I went wrong was that I tried to be too balanced. I made sure that every metric that I used had another metric to cover for the margin of error. that just doesn’t work like that in basketball and especially in NCAA.</p>
+<p>I think the metrics that ended up meaning something were offensive efficiency, defensive efficiency and free throw shooting. when doing my research, sitting and watching every march madness game on my couch at home, it seemed to me that the team that went to the line most, making those free throws, and were the most dominant with scoring on their possessions and stopping the other team when they had the ball was the biggest indicator of who was going to win.</p>
+<p>Even though I didn’t get the winner right, along the way my metrics was trying to tell me something with how many upsets I did have. For example I had Baylor losing in the round of 64. Obviously, that didn’t happen but they lost in the round of 32 so ill call that a victory. In that matchup against Norfolk state my metric was 68% sure that Baylor was going to lose. Seems fairly confident coming from a No. 16 seed.</p>
+<p>Even though I didn’t call the right round my metric did pick up on Kentucky being frauds. I don’t really know how St. Peters did what they did but it was special. My metric had Kentucky being taken down by Murray State in the round of 32 with 63% of confidence running through it. Even though that was not the matchup or the round that they lost in, one round difference for both of the biggest upsets in the tourney, ill take it.</p>
+<p>What I would do differently for next time is what I said previously. I need to realize that not everything in this world should and is balanced. Maybe Thanos was right? Not the point sorry.</p>
+<p>But I think that possessions count way more than we realize in these games. Being able to score consistently percentage wise from games that were not in the tournament don’t really mean much when in NCAA the difference between the teams can be so different. Offensive and Defensive efficiency are what I will rock with going forward because those to me showed a lot better outcomes to who would win the game.</p>
+<p>And lastly before I go cry because I bet all my money on Vermont, free throws. Seeing that these players are in college and have emotions, these tournament games get to them. Being able to get to the line, first and foremost and then convert the free throws is the most important to me. Villanova this year was top in both of those categories and went to the final four. Does that meaan something? I think yes.</p>
+<p>At the end of the day to bank my metrics on 72% confidence wasn’t that smart of an idea but hey, you live and you learn.</p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
